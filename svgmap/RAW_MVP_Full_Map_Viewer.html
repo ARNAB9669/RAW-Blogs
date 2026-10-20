@@ -19,25 +19,39 @@
   /* ── Toolbar ── */
   #toolbar {
     position: fixed;
-    top: 16px;
+    top: 14px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(22,27,34,0.92);
+    background: rgba(22, 27, 34, 0.94);
     border: 1px solid #30363D;
     border-radius: 12px;
-    padding: 8px 14px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    padding: 7px 12px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    max-width: calc(100vw - 20px);
+    width: max-content;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
   }
 
-  #toolbar span {
+  .tb-group-left,
+  .tb-group-controls,
+  .tb-group-presets {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #toolbar span.tb-title {
     font-size: 13px;
     color: #8B949E;
     user-select: none;
+    white-space: nowrap;
   }
 
   #zoom-label {
@@ -46,6 +60,7 @@
     color: #58A6FF;
     min-width: 44px;
     text-align: center;
+    user-select: none;
   }
 
   .tb-btn {
@@ -53,15 +68,21 @@
     border: 1px solid #30363D;
     color: #E6EDF3;
     border-radius: 8px;
-    padding: 5px 12px;
+    padding: 6px 12px;
     font-size: 13px;
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
     user-select: none;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
   }
   .tb-btn:hover { background: #30363D; border-color: #58A6FF; }
+  .tb-btn:active { transform: scale(0.97); }
 
-  .tb-sep { width: 1px; height: 20px; background: #30363D; }
+  .tb-sep { width: 1px; height: 18px; background: #30363D; flex-shrink: 0; }
 
   /* ── Hint bar ── */
   #hint {
@@ -70,13 +91,81 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
-    font-size: 12px;
+    font-size: 11px;
     color: #8B949E;
-    background: rgba(22,27,34,0.85);
+    background: rgba(22, 27, 34, 0.88);
     border: 1px solid #21262D;
     border-radius: 8px;
-    padding: 5px 14px;
+    padding: 6px 14px;
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    max-width: calc(100vw - 24px);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  /* ── Responsive Toolbar ── */
+  @media (max-width: 768px) {
+    #toolbar {
+      top: 10px;
+      padding: 6px 10px;
+      gap: 6px;
+      width: calc(100vw - 16px);
+      justify-content: space-between;
+    }
+
+    .tb-desktop-only {
+      display: none !important;
+    }
+
+    .tb-btn-back .back-text {
+      display: none;
+    }
+
+    .tb-btn-back::after {
+      content: "Back";
+    }
+
+    .tb-btn {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    #zoom-label {
+      min-width: 38px;
+      font-size: 12px;
+    }
+
+    #hint {
+      bottom: 10px;
+      font-size: 10.5px;
+      padding: 4px 10px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    #toolbar {
+      padding: 5px 8px;
+      gap: 4px;
+    }
+
+    .tb-btn {
+      padding: 5px 8px;
+      font-size: 12px;
+    }
+
+    .tb-group-controls {
+      gap: 3px;
+    }
+
+    #zoom-label {
+      min-width: 32px;
+      font-size: 11.5px;
+    }
   }
 
   /* ── Canvas ── */
@@ -157,17 +246,26 @@
 </div>
 
 <div id="toolbar">
-  <a href="../index.html" class="tb-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:#58A6FF;font-weight:600;">← Back to Journal</a>
-  <div class="tb-sep"></div>
-  <span>RAW-MVP Full Architecture Map</span>
-  <div class="tb-sep"></div>
-  <button class="tb-btn" id="btn-zoom-out">−</button>
-  <span id="zoom-label">100%</span>
-  <button class="tb-btn" id="btn-zoom-in">+</button>
-  <button class="tb-btn" id="btn-reset">Fit</button>
-  <div class="tb-sep"></div>
-  <button class="tb-btn" id="btn-1x">100%</button>
-  <button class="tb-btn" id="btn-2x">200%</button>
+  <div class="tb-group-left">
+    <a href="../index.html" class="tb-btn tb-btn-back" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:#58A6FF;font-weight:600;">
+      <span class="back-arrow">←</span>
+      <span class="back-text">Back to Journal</span>
+    </a>
+  </div>
+  <div class="tb-sep tb-desktop-only"></div>
+  <span class="tb-title tb-desktop-only">RAW-MVP Architecture Map</span>
+  <div class="tb-sep tb-desktop-only"></div>
+  <div class="tb-group-controls">
+    <button class="tb-btn" id="btn-zoom-out" title="Zoom Out" aria-label="Zoom Out">−</button>
+    <span id="zoom-label">100%</span>
+    <button class="tb-btn" id="btn-zoom-in" title="Zoom In" aria-label="Zoom In">+</button>
+    <button class="tb-btn" id="btn-reset" title="Fit to Screen" aria-label="Fit to Screen">Fit</button>
+  </div>
+  <div class="tb-sep tb-desktop-only"></div>
+  <div class="tb-group-presets tb-desktop-only">
+    <button class="tb-btn" id="btn-1x">100%</button>
+    <button class="tb-btn" id="btn-2x">200%</button>
+  </div>
 </div>
 
 <div id="canvas">
@@ -276,9 +374,12 @@
 
   // ── Touch pan + pinch zoom ────────────────────────────────────
   let lastTouches = [];
+  let lastTapTime = 0;
+
   canvas.addEventListener('touchstart', e => {
     lastTouches = Array.from(e.touches);
   }, { passive: true });
+
   canvas.addEventListener('touchmove', e => {
     e.preventDefault();
     const touches = Array.from(e.touches);
@@ -287,9 +388,9 @@
       ty += touches[0].clientY - lastTouches[0].clientY;
       applyTransform();
     } else if (touches.length === 2 && lastTouches.length === 2) {
-      const dist = (a, b) => Math.hypot(a[0].clientX-a[1].clientX, a[0].clientY-a[1].clientY);
-      const prevDist = dist(lastTouches, lastTouches);
-      const currDist = dist(touches, touches);
+      const getTouchDist = (t1, t2) => Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      const prevDist = getTouchDist(lastTouches[0], lastTouches[1]);
+      const currDist = getTouchDist(touches[0], touches[1]);
       if (prevDist > 0) {
         const mx = (touches[0].clientX + touches[1].clientX) / 2;
         const my = (touches[0].clientY + touches[1].clientY) / 2;
@@ -298,6 +399,28 @@
     }
     lastTouches = touches;
   }, { passive: false });
+
+  const onTouchEnd = (e) => {
+    lastTouches = Array.from(e.touches);
+    // Double tap detection on mobile
+    if (e.changedTouches.length === 1) {
+      const now = Date.now();
+      if (now - lastTapTime < 300) {
+        fitToScreen();
+      }
+      lastTapTime = now;
+    }
+  };
+  canvas.addEventListener('touchend', onTouchEnd, { passive: true });
+  canvas.addEventListener('touchcancel', onTouchEnd, { passive: true });
+
+  // Update hint bar for touch devices
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    const hintEl = document.getElementById('hint');
+    if (hintEl) {
+      hintEl.textContent = 'Pinch to zoom · Drag to pan · Double-tap to fit';
+    }
+  }
 
   // ── Double-click reset ────────────────────────────────────────
   canvas.addEventListener('dblclick', fitToScreen);
