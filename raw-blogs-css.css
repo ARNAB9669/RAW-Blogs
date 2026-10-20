@@ -46,6 +46,8 @@ html {
     scroll-behavior: smooth;
     background-color: var(--color-bg-base);
     height: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 body {
@@ -98,6 +100,8 @@ code {
     padding: 2px 7px;
     border-radius: 6px;
     color: #e2e8f0;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 code a {
@@ -1226,18 +1230,30 @@ footer.app-footer {
     body {
         height: auto;
         min-height: 100vh;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 16px;
+        margin: 0;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
     }
 
     .app-viewport-frame {
         height: auto;
         overflow: visible;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .app-content-body {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         height: auto;
         overflow: visible;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 
     aside.sidebar-toc {
@@ -1247,11 +1263,57 @@ footer.app-footer {
     main.article-stage {
         height: auto;
         overflow-y: visible;
-        padding: 32px 24px;
+        overflow-x: hidden;
+        padding: 28px 20px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
     .topology-stages-grid {
         grid-template-columns: 1fr;
+    }
+
+    .entry {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .entry-body {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .terminal-block {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .terminal-content {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
+    }
+
+    .topology-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 }
 
@@ -1263,47 +1325,92 @@ footer.app-footer {
     .app-viewport-frame {
         border-radius: 0;
         border: none;
+        border-left: none;
+        border-right: none;
     }
 
     nav.app-navbar {
-        padding: 12px 16px;
+        padding: 12px 14px;
         flex-direction: column;
         gap: 12px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .nav-left {
         width: 100%;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        align-items: stretch;
         gap: 10px;
+        min-width: 0;
     }
 
     .nav-brand-group {
-        flex-shrink: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
     }
 
     .nav-pill-switcher {
-        flex: 1;
-        justify-content: flex-end;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 4px;
+        box-sizing: border-box;
+        gap: 4px;
+    }
+
+    .nav-pill-switcher::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-pill-switcher a,
+    .nav-pill-switcher button {
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 0.78rem;
+        padding: 6px 12px;
     }
 
     .nav-right {
         width: 100%;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
+        min-width: 0;
     }
 
     .search-wrapper {
         flex: 1;
         min-width: 0;
+        width: 100%;
+        position: relative;
     }
 
     .search-field-pill {
         min-width: 0;
         width: 100%;
-        padding: 7px 12px;
+        padding: 7px 10px;
+        gap: 6px;
+    }
+
+    .search-field-pill input {
+        min-width: 0;
+        font-size: 0.8rem;
+    }
+
+    .kbd-shortcut {
+        display: none; /* Hide ⌘K on mobile to save space */
     }
 
     .search-results-dropdown {
@@ -1315,93 +1422,142 @@ footer.app-footer {
 
     .btn-cta-get {
         flex-shrink: 0;
-        padding: 7px 14px;
-        font-size: 0.78rem;
+        white-space: nowrap;
+        padding: 7px 12px;
+        font-size: 0.76rem;
     }
 
     .sub-nav-bar {
-        padding: 10px 16px;
-        font-size: 0.7rem;
+        padding: 10px 14px;
+        font-size: 0.68rem;
         overflow-x: auto;
         white-space: nowrap;
         scrollbar-width: none;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .sub-nav-bar::-webkit-scrollbar {
         display: none;
     }
+
+    main.article-stage {
+        padding: 20px 14px;
+    }
 }
 
 @media (max-width: 640px) {
     main.article-stage {
-        padding: 20px 14px;
+        padding: 18px 12px;
     }
 
     .entry {
-        padding: 20px 16px;
+        padding: 18px 12px;
+        margin-bottom: 24px;
     }
 
+    .entry-header h2,
     .entry h2 {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         line-height: 1.3;
+        margin-bottom: 14px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .entry-body {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .entry-body p {
+        margin-bottom: 16px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    blockquote.callout-quote {
+        margin: 20px 0;
+        padding: 14px 16px;
+        font-size: 0.95rem;
     }
 
     .author-meta-row {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
-        padding: 12px 14px;
+        gap: 8px;
+        padding: 10px 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .author-left {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .author-info-text {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .author-info-text .author-name {
+        font-size: 0.86rem;
     }
 
     .author-info-text .author-role {
-        font-size: 0.72rem;
+        font-size: 0.7rem;
+        word-break: break-word;
     }
 
     .topology-card {
-        padding: 16px 14px;
+        padding: 14px 12px;
     }
 
     .topology-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 8px;
     }
 
     .terminal-header {
-        padding: 8px 12px;
-        font-size: 0.7rem;
+        padding: 8px 10px;
+        font-size: 0.68rem;
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 4px;
     }
 
     .terminal-content {
-        padding: 12px 14px;
-        font-size: 0.78rem;
+        padding: 10px 12px;
+        font-size: 0.75rem;
+        word-break: break-word;
     }
 
     .tech-callout {
-        padding: 18px 16px;
+        padding: 16px 12px;
     }
 
     footer.app-footer {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         text-align: center;
         padding-top: 24px;
-        margin-top: 40px;
+        margin-top: 36px;
+        font-size: 0.74rem;
     }
 
     .modal-card {
         padding: 10px;
-        border-radius: 16px;
-        max-width: 95vw;
+        border-radius: 14px;
+        max-width: 92vw;
     }
 
     .modal-close-btn {
-        top: 16px;
-        right: 16px;
-        width: 32px;
-        height: 32px;
-        font-size: 0.95rem;
+        top: 14px;
+        right: 14px;
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
     }
 }
