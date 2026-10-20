@@ -160,10 +160,17 @@ nav.app-navbar {
     border-radius: 8px;
     background: #171822;
     border: 1px solid #2b2e40;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #fff;
+    overflow: hidden;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.brand-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    display: block;
 }
 
 .brand-title {
@@ -1215,10 +1222,12 @@ blockquote.callout-quote {
     justify-content: center;
 }
 
-.entry-media video {
+.entry-media video,
+.entry-media iframe {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border: none;
     display: block;
     background: #000;
 }
