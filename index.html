@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAW-Blogs</title>
+    <link rel="stylesheet" href="raw-blogs-css.css">
+</head>
+
+<body>
+    <div class="app-viewport-frame">
+    <!-- Top Navigation Bar -->
+    <nav class="app-navbar">
+      <div class="nav-left">
+        <div class="nav-brand-group">
+          <span class="brand-badge">[R]</span>
+          <span class="brand-title">RAW</span>
+          <span class="brand-sub">Journal</span>
+        </div>
+        <div class="nav-pill-switcher">
+          <a href="#" class="active">Engineering Journal</a>
+          <a href="#">Architecture</a>
+          <a href="#">Releases</a>
+          <a href="#">Documentation</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="search-field-pill">
+          <span>🔍</span>
+          <input type="text" id="entry-search-input" placeholder="Search chapters or topics...">
+          <span class="kbd-shortcut">⌘K</span>
+        </div>
+        <a href="#" class="btn-cta-get">Get RAW &darr;</a>
+      </div>
+    </nav>
+
+    <!-- Sub-header metadata bar -->
+    <div class="sub-nav-bar">
+      <div class="breadcrumb-label">
+        <span>ENGINEERING JOURNAL</span>
+        <span class="divider">/</span>
+        <span>ARCHITECTURE & SYSTEMS</span>
+      </div>
+      <div class="meta-status-tags">
+        <span><span class="status-dot"></span>Internal Spec v2.4.0</span>
+        <span class="commit-badge">Commit 7b3fa9c</span>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="app-content-body">
+      <!-- Left Sticky Table of Contents -->
+      <aside class="sidebar-toc" id="toc">
+        <div class="toc-top-section">
+          <div class="toc-header-row">
+            <span class="toc-eyebrow">TABLE OF CONTENTS</span>
+            <span class="toc-chapter-badge">23 Chapters</span>
+          </div>
+          <ol class="toc-items-list" id="toc-list">
+            <li><a href="#entry-ui-overview"><span class="toc-num">01</span> <span>RAW — A Browser Rebuilt From Scratch</span></a></li>
+            <li><a href="#entry-tabs-navigation"><span class="toc-num">02</span> <span>Tabs, Windows & Navigation</span></a></li>
+            <li><a href="#entry-privacy-engine"><span class="toc-num">03</span> <span>Inside Privacy & Anti-Fingerprinting</span></a></li>
+            <li><a href="#entry-ad-blocking"><span class="toc-num">04</span> <span>Ad-Blocking That Doesn't Break Pages</span></a></li>
+            <li><a href="#entry-native-drm"><span class="toc-num">05</span> <span>Native DRM & Streaming</span></a></li>
+            <li><a href="#entry-xdown"><span class="toc-num">06</span> <span>XDown — Media Extraction</span></a></li>
+            <li><a href="#entry-vpn"><span class="toc-num">07</span> <span>Full-System VPN & Privacy Mesh</span></a></li>
+            <li><a href="#entry-speech-translation"><span class="toc-num">08</span> <span>On-Device Speech & Translation</span></a></li>
+            <li><a href="#entry-ai-agent"><span class="toc-num">09</span> <span>The RAW-AI Agent & 33 Tools</span></a></li>
+            <li><a href="#entry-tiyara"><span class="toc-num">10</span> <span>Tiyara — The 3D Companion</span></a></li>
+            <li><a href="#entry-live-voice"><span class="toc-num">11</span> <span>Gemini Live Voice Mode</span></a></li>
+            <li><a href="#entry-pwa-packaging"><span class="toc-num">12</span> <span>Turning Any Site Into a Native App</span></a></li>
+            <li><a href="#entry-chat"><span class="toc-num">13</span> <span>Chat — Conversational AI</span></a></li>
+            <li><a href="#entry-localdrive"><span class="toc-num">14</span> <span>LocalDrive — Local File Sharing</span></a></li>
+            <li><a href="#entry-vpnextender"><span class="toc-num">15</span> <span>VPNExtender — Mobile Tethering</span></a></li>
+            <li><a href="#entry-vrmposeeditor"><span class="toc-num">16</span> <span>VRMPoseEditor — Posing Tiyara</span></a></li>
+            <li><a href="#entry-ctf"><span class="toc-num">17</span> <span>CTF Security Dashboard</span></a></li>
+            <li><a href="#entry-ailogs"><span class="toc-num">18</span> <span>AILogs Inspector</span></a></li>
+            <li><a href="#entry-aifiles"><span class="toc-num">19</span> <span>AIFiles Manager</span></a></li>
+            <li><a href="#entry-encoder"><span class="toc-num">20</span> <span>Encoder / Decoder</span></a></li>
+            <li><a href="#entry-morsecode"><span class="toc-num">21</span> <span>MorseCode</span></a></li>
+            <li><a href="#entry-crashlogs"><span class="toc-num">22</span> <span>CrashLogs Diagnostics</span></a></li>
+            <li><a href="#entry-settings"><span class="toc-num">23</span> <span>Settings & Customization</span></a></li>
+          </ol>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="reading-progress-wrap">
+            <div class="progress-labels">
+              <span>Reading Progress</span>
+              <span id="progress-pct">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+          </div>
+          <div class="sidebar-actions">
+            <button class="btn-sidebar-tool" id="btn-copy-link">🔗 Copy Link</button>
+            <button class="btn-sidebar-tool" id="btn-bookmark">🔖 Bookmark</button>
+          </div>
+        </div>
+      </aside>
+
+        <!-- Long-scroll article: every post lives here as its own entry, one after another -->
+        <main class="article-stage" id="entries">
+
+            <article class="entry" id="entry-ui-overview" data-filter="ui-ux">
+                <header class="entry-header">
+                    <span class="blog-tag">UI/UX</span>
+                    <h2>1. RAW — A Browser Rebuilt From Scratch</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Take a deep breath—you are in a tracker-free zone now. RAW began from a very simple, relatable
+                        frustration: almost every mainstream browser on the market quietly treats you like the product
+                        on the shelf. Before a homepage has even finished loading, your typing rhythm, your GPU
+                        model, and even the ambient noise floor of your microphone get fingerprinted, packaged up, and
+                        handed over to an ad network (who probably knows your snack preferences better than you
+                        do). RAW is my personal answer to all that chaos—a calming, user-first browser built on
+                        Electron, but completely re-engineered underneath with its own custom window management, an
+                        uncompromising privacy shield, an intelligent AI agent, and a friendly companion hanging out
+                        right on top. (Yes, there are real notes in my project repo titled
+                        <code>I broke-internet.md</code> and <code>I_was_about_to_go_mental_hospital.md</code> from the
+                        debugging days, so I suffered so you don't have to.)</p>
+
+<blockquote class="callout-quote">
+  “I realized that patching an ad-driven codebase from 2008 was a losing game. If you want zero leakage and instant input response, you have to control the process boundaries from PID 0.”
+</blockquote>
+
+<div class="terminal-block">
+  <div class="terminal-header">
+    <div class="terminal-title">
+      <span class="terminal-dot"></span>
+      <span>raw-engine / git-log.txt</span>
+    </div>
+    <span class="commit-hash">commit 9c420e1</span>
+  </div>
+  <div class="terminal-content">
+    <div class="comment">// From the debugging trenches during my early multi-process overhaul:</div>
+    <div>commit 12a0: "I_broke_internet.md — IPC lock contention resolved across renderer isolates"</div>
+    <div>commit f49b: "I_was_about_to_go_mental_hospital.md — fixing zero-copy surface exchange on macOS"</div>
+    <div class="comment" style="margin-top: 6px;">I suffered through thread contention so you never have to notice it.</div>
+  </div>
+</div>
+
+
+                    <p>When you first open it, RAW feels like coming home to a browser you already know and love—your
+                        tabs sit neatly up top, right alongside a clean address bar and the classic back, forward, and
+                        reload trio. The real magic reveals itself the moment you start playing around with it:
+                        you can effortlessly tear tabs off into brand-new windows, drag and reorder them with
+                        buttery-smooth animations, mute noisy tabs individually, duplicate them in a heartbeat, and even
+                        bring back twenty accidentally closed tabs in the exact order you lost them. Every
+                        single detail—URL, title, favicon, loading state, and whether a tab is currently blasting
+                        music—is tracked per-tab in real time, meaning the UI never has to play a guessing game about
+                        what is happening beneath the surface.</p>
+                    <p>Floating gently above your workspace is <strong>Tiyara</strong>, a 3D avatar companion who lives
+                        in her own transparent, always-on-top window and keeps you company while you browse.
+                        She lip-syncs to voice responses, dances along to whatever music you're playing, and gestures
+                        expressively while the AI agent is busy working on a task. Far from being a sticker
+                        slapped on top for show, she is wired directly into the exact same tool-calling pipeline that
+                        the AI agent uses to pilot the browser itself.</p>
+                    <p>Grab a snack and scroll at your own pace: the rest of this page walks through every single system
+                        that makes RAW tick—from the navigation layer, anti-fingerprinting engine, and page-friendly ad
+                        blocker to native DRM streaming, the built-in media downloader, the full-system VPN, on-device
+                        speech and translation, the 33-tool AI agent, Tiyara herself, and the handy utility suite tucked
+                        underneath. Every section includes its own screen recording so you can kick back and
+                        watch it all work in action, rather than just taking my word for it.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/ui-overview.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-tabs-navigation" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>2. Tabs, Windows & Navigation</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Tab management sounds like the most relaxing weekend project in the world—right up until you
+                        actually try building it from scratch. While Chrome has had well over a decade to
+                        polish its tabs, RAW's tab architecture had to be crafted from the ground up on top of
+                        Electron's <code>WebContentsView</code>, and it needed to go beyond standard expectations with
+                        full cross-window tab migration, per-tab audio isolation, and a closed-tab memory stack that
+                        actually respects chronology.</p>
+                    <ul>
+                        <li><strong>Mindful state tracking</strong> — Creating, closing, and hopping between tabs is
+                            orchestrated by a dedicated window manager that quietly watches every tab's URL, title,
+                            favicon, load progress, back/forward history, and whether it is currently making a
+                            racket.</li>
+                        <li><strong>Forgiving tab recovery</strong> — Accidentally closing a tab during a late-night
+                            research spiral isn't a tragedy here; the last 20 closed tabs are safely held on a
+                            per-window stack so hitting "reopen closed tab" brings them back in the exact order they
+                            left.</li>
+                        <li><strong>Seamless window hopping</strong> — You can pluck a tab right out of one window and
+                            drop it cozily into another, which under the hood means detaching and re-adopting a live
+                            <code>WebContentsView</code> mid-session without causing a single hiccup in whatever video
+                            is playing inside it.</li>
+                        <li><strong>Popup peace of mind</strong> — Annoying popups don't get to litter your screen with
+                            chaotic new windows; a smart window-open handler catches them at the door and tucks them
+                            neatly into contained tabs instead.</li>
+                        <li><strong>Secure internal routing & domain locks</strong> — Beyond everyday web surfing, RAW
+                            uses a custom internal <code>app://</code> protocol to serve its own UI pages (like
+                            settings, tools, and history) in complete isolation from the open web, paired with an
+                            enterprise-grade domain lock that can strictly limit browsing to approved origins whenever
+                            you need guardrails.</li>
+                    </ul>
+                    <p>Even printing and saving PDFs got the same loving attention to detail: a live print preview modal
+                        renders your page on the spot, crafts a crisp, lossless PDF using Chromium's native engine, or
+                        sends it straight to a physical printer without ever making you leave your cosy browser
+                        window.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/tabs-navigation.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-privacy-engine" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>3. Inside the Privacy & Anti-Fingerprinting Engine</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>If RAW has a protective older sibling energy, this engine is where it lives. Most
+                        "private" browsers block third-party cookies, pat themselves on the back, and call it a day—even
+                        though cookies are the least clever way trackers follow you around anymore. The
+                        sneakiest tracking happens by inspecting your actual hardware: how your specific GPU draws a
+                        hidden canvas, the microscopic quirks of your audio stack, and how many CPU threads your machine
+                        brags about having. RAW steps right in front of all of that so you can browse in
+                        peace.</p>
+                    <ul>
+                        <li><strong>Fail-closed partitioning</strong> — RAW flatly refuses to let any traffic wander
+                            through Electron's default session partition, routing everything instead through two
+                            strictly isolated, purpose-built partitions so accidental default-session leaks are
+                            impossible.</li>
+                        <li><strong>Canvas noise injection</strong> — Every time a script calls
+                            <code>getImageData()</code>, RAW stirs in a tiny, invisible pinch of mathematical noise so
+                            your canvas fingerprint looks different every session while keeping the visual page looking
+                            completely normal to your eyes.</li>
+                        <li><strong>WebGL disguise kit</strong> — Your GPU vendor strings, renderer names, and shader
+                            parameters are dynamically masked, preventing nosy scripts from recognizing your computer by
+                            its graphics card.</li>
+                        <li><strong>Audio fingerprint masking</strong> — Output from <code>AudioContext</code> receives
+                            the same imperceptible mathematical seasoning, shutting the door on acoustic device
+                            profiling without changing how your music sounds.</li>
+                        <li><strong>Hardware concurrency spoofing</strong> — I made RAW politely fib about
+                            <code>navigator.hardwareConcurrency</code> so trackers can't use your CPU thread count to
+                            pick you out of a crowd.</li>
+                        <li><strong>Session-seeded consistency</strong> — All of this protective noise is generated from
+                            a seed that stays steady for your current session (so web apps don't get confused and break
+                            mid-click) but refreshes between sessions so nobody can link today's visit to
+                            tomorrow's.</li>
+                    </ul>
+                    <p>To make sure no sneaky script slips through a side door, RAW automatically attaches the Chrome
+                        DevTools Protocol debugger to every single tab, subframe, and background worker—meaning even
+                        nested iframes that think nobody is watching get the exact same privacy rules applied.
+                        Plus, there is a completely separate sandbox partition set aside just for security testing,
+                        ensuring your experimental tinkering never touches your personal browsing life.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/privacy-engine.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-ad-blocking" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>4. Ad-Blocking That Doesn't Break Pages</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Modern ad blocking is basically a never-ending game of cat and mouse: the moment blockers get
+                        good, websites start setting up "honeypot" traps just to catch you and throw up a giant
+                        guilt-trip banner asking you to turn your blocker off. RAW's ad-blocking layer was
+                        designed to outsmart the traps quietly so you can just read your article in peace.</p>
+                    <ul>
+                        <li><strong>Heavy-duty multi-list filtering</strong> — A high-speed filtering engine comes
+                            pre-loaded with EasyList, EasyPrivacy, and uBlock-style filter lists working together, so if
+                            one list misses an annoying banner, another catches it.</li>
+                        <li><strong>Instant per-domain whitelisting</strong> — When you want to support a creator or
+                            site you genuinely trust, you can exempt their domain with a click and have it sync
+                            instantly across every rendering surface with zero awkward delay.</li>
+                        <li><strong>Polite stealth probe evasion</strong> — Instead of slamming the door in the face of
+                            known anti-adblock honeypot domains (which tips off the website), RAW intercepts them and
+                            hands back a harmless, invisible transparent pixel via its internal protocol—leaving the
+                            trap completely satisfied while your page stays unbroken and ad-free.</li>
+                        <li><strong>FadBlock for video sanity</strong> — For those stubborn YouTube ads that try to
+                            sneak past traditional filters, FadBlock steps in to fast-forward the ad playback and click
+                            the skip button the millisecond it materializes, saving you from hearing about another
+                            productivity app you'll never download.</li>
+                    </ul>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/ad-blocking.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-native-drm" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>5. Native DRM & Streaming Acceleration</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Here is a dirty little secret of indie browser development: out-of-the-box Electron Chromium
+                        builds don't have the licensing handshakes to speak Widevine or FairPlay like mainstream
+                        browsers do. Usually, that means the moment you try to unwind with Netflix, Spotify,
+                        Hulu, or Prime Video, the site either refuses to play altogether or passive-aggressively serves
+                        you a blurry potato-quality stream from 2006.</p>
+                    <p>RAW fixes this headache with a bit of clever engineering magic: the moment it detects a protected
+                        streaming service, a lightweight native addon seamlessly mounts a real macOS WebKit view right
+                        on top of the Electron window for that specific tab. Because that layer is running
+                        genuine Safari-grade DRM under the hood, you get full hardware-accelerated Widevine and FairPlay
+                        decryption effortlessly. Even better, session cookies sync both ways between Electron's
+                        store and the native cookie store, and the overlay follows every window resize, move, and tab
+                        switch so smoothly that you'll never even notice a second rendering engine stepped in to save
+                        your movie night.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/native-drm.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-xdown" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>6. XDown — The Built-In Media Downloader</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>You've probably been there—trying to save a video for an offline flight and ending up on a sketchy
+                        "Free Video Downloader" website covered inseventeen fake green download buttons. To save you
+                        from that fate, RAW includes <strong>XDown</strong>, its own built-in media extraction engine
+                        that hums along quietly in a dedicated background process (complete with its own bundled
+                        <code>ffmpeg</code> and <code>yt-dlp</code> binaries) so your browsing never slows down and you
+                        never have to install extra command-line tools.</p>
+                    <ul>
+                        <li><strong>One-click stream grabber</strong> — Just click once on a tab playing media and XDown
+                            automatically spots the active stream and hands it over to the extraction engine—no more
+                            hunting through network tabs or copy-pasting URLs.</li>
+                        <li><strong>Resilient HLS chunk wrangling</strong> — Segmented HLS streams are cared for by a
+                            dedicated session manager that tracks every piece, politely retries any segment that
+                            stumbles, and stitches the final video together seamlessly.</li>
+                        <li><strong>Clean in-memory caching</strong> — Streams flow through a speedy in-memory LRU cache
+                            rather than cluttering your hard drive with half-baked temporary scratch files.
+                        </li>
+                        <li><strong>Built-in clip studio</strong> — Want just a 30-second snippet or only the audio
+                            track? A friendly clip extractor UI lets you trim exact timestamps, choose your resolution,
+                            or pull pure audio before the file even lands in your downloads folder.</li>
+                    </ul>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/xdown.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-vpn" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>7. The Full-System VPN & Privacy Network</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>When other browsers brag about a "built-in VPN," they usually mean a glorified browser proxy that
+                        leaves the rest of your computer out in the cold. RAW goes all the way with a true VPN
+                        layer powered by the VLESS + REALITY protocol over Xray Core, which cleverly disguises your VPN
+                        handshake as everyday TLS web traffic so deep packet inspection can't tell the difference. Everything runs locally on your machine and can protect either just your browser or your
+                        entire operating system at the flip of a switch.</p>
+                    <ul>
+                        <li><strong>Batteries included</strong> — Native multi-architecture binaries for both the proxy
+                            core and tunneling layer come bundled right inside the app, complete with full routing
+                            tables and geo-data sets.</li>
+                        <li><strong>Share the umbrella with mobile tethering</strong> — Any phone on your Wi-Fi can hop
+                            into your desktop's encrypted VPN tunnel just by scanning a QR code—zero tedious typing of
+                            server keys required.</li>
+                        <li><strong>No-nonsense kill switches</strong> — While the full-system VPN is on duty, IPv6 is
+                            automatically switched off system-wide and WebRTC is strictly locked down so your real local
+                            IP never slips out by accident.</li>
+                        <li><strong>Server-side ad blackholing</strong> — Known ad and tracker domains get dropped into
+                            a black hole right at the VPN layer, stopping junk packets before they even knock on your
+                            device's door.</li>
+                        <li><strong>Graceful network recovery</strong> — A multi-tier network interface detector makes
+                            sure that when you disconnect, your system's proxy settings are restored cleanly every
+                            single time—never leaving your Wi-Fi confused and pointing at a closed tunnel.</li>
+                    </ul>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/vpn.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-speech-translation" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>8. On-Device Speech, Audio & Translation</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Sending your voice recordings or private reading material to somebody else's cloud server just to
+                        transcribe or translate a sentence kind of ruins the whole "privacy-first browser" vibe. That's why RAW keeps speech, audio tuning, and translation right on your own hardware
+                        wherever possible—fast, offline, and between you and your Mac.</p>
+                    <ul>
+                        <li><strong>Whisper-quiet local speech-to-text</strong> — Voice transcription runs on a
+                            standalone Whisper engine with zero external dependencies, custom-tuned for Apple Silicon's
+                            Metal GPU (from M1 all the way through M4 chips) so it transcribes as fast as you can
+                            talk.</li>
+                        <li><strong>Warm, human text-to-speech</strong> — Instead of sounding like a 1990s GPS
+                            navigator, RAW uses a custom Kokoro-based neural synthesis engine paired with a dedicated
+                            English phonemizer for natural rhythm, warmth, and pronunciation.</li>
+                        <li><strong>Studio-grade 14-band parametric equalizer</strong> — Whether you're listening to
+                            lo-fi beats or a lecture, built-in presets (Bass+, Acoustic, Vocal, Electronic, Rock, and
+                            more—born alongside my hardware-tinkering experiments like
+                            <code>EQ-C++/esp3q.ino</code>) sculpt your system-wide audio, not just what's
+                            playing in a tab.</li>
+                        <li><strong>Zero-latency offline translation</strong> — Powered by Apple Intelligence's
+                            on-device neural engine, RAW translates entire web pages offline in real time—swapping out
+                            live DOM text (right down to tiny tooltips and ARIA accessibility labels) and even
+                            intercepting JSON API responses mid-flight so dynamic content arrives already speaking your
+                            language.</li>
+                    </ul>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/speech-translation.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-ai-agent" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>9. The RAW-AI Agent & Its 33 Tools</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Here is where RAW transforms from a cosy, well-armoured browser into an active co-pilot that can
+                        actually take the wheel when you're tired of clicking. Mapped out in detail across my
+                        architecture blueprints (<code>RAW_AI_Architecture.svg</code>,
+                        <code>RAW_AI_Logic_Flow.mmd</code>, and <code>RAW_AI_Tools_Map.svg</code>), the AI
+                        orchestrator smoothly routes your requests between local Ollama models and cloud
+                        models—automatically falling back without a fuss if a cloud quota gets full, and streaming
+                        answers via ultra-fast NDJSON straight from local models whenever that's the quicker route.</p>
+                    <p>Instead of just chatting from the sidelines, the agent has 33 hands-on tools organized into five
+                        practical toolkits:</p>
+                    <ul>
+                        <li><strong>Full browser automation</strong> — It can list, open, close, switch, navigate,
+                            duplicate, or restore tabs; click buttons and fill out forms by accessibility ID; scroll,
+                            search inside pages, pop open DevTools, or execute raw JavaScript directly inside the page
+                            context while you sip your tea.</li>
+                        <li><strong>Visual & multimodal perception</strong> — It can snap gated screenshots, render a
+                            whole page into a PDF stamped with numbered badges over every clickable element for pinpoint
+                            visual targeting, or run a reverse image search straight from a local file.</li>
+                        <li><strong>On-demand translation</strong> — Ask it to translate a highlighted paragraph or an
+                            entire foreign webpage and it handles it on the spot.</li>
+                        <li><strong>Interactive canvas & code validation</strong> — It can summon pre-built UI widgets
+                            (clocks, live weather cards, study flashcards, interactive quizzes), load structured skill
+                            runbooks, and pre-validate math, 3D graphs, molecular structures, or Desmos-style code
+                            against dedicated rendering engines before showing it to you so you never get a broken
+                            chart.</li>
+                        <li><strong>Audio, weather & 3D companion controls</strong> — It can flip your EQ audio presets,
+                            check the local forecast, or choreograph Tiyara's animations and poses right from the middle
+                            of your conversation.</li>
+                    </ul>
+                    <p>For complete peace of mind, every multi-turn session is recorded with tamper-proof HMAC-SHA256
+                        signed audit logs that track token usage and cost per turn—and a multi-tier abort button lets
+                        you stop the agent (and any background sub-agents) mid-thought if you ever change your
+                        mind.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/ai-agent.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-tiyara" data-filter="demo">
+                <header class="entry-header">
+                    <span class="blog-tag">Demo</span>
+                    <h2>10. Tiyara — The 3D Companion</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Coding or researching at 2 AM is a lot less lonely when someone is cheering you on.
+                        <strong>Tiyara</strong> hangs out in her own frameless, transparent, always-on-top window that
+                        loyally follows and anchors itself to whichever browser window you're currently using.
+                        Underneath her friendly exterior is a hardware-accelerated Three.js WebGL stage complete with
+                        dynamic lighting, soft shadows, VRM bone rigs, cloth physics, and a custom inverse-kinematics
+                        solver that makes sure her arms and legs bend like a real person's instead of snapping like a
+                        wooden action figure.</p>
+                    <ul>
+                        <li><strong>A wardrobe for every mood</strong> — She comes with a full closet of VRM avatar
+                            outfits (Nerd, Anime, Kimono, Office, and Casual Outdoor) paired with a rich FBX animation
+                            library—so she can do backflips when your code compiles, dance hip hop or rumba, tap her
+                            chin in deep thought, wave hello, or stroll around instead of being stuck in one boring idle
+                            loop.</li>
+                        <li><strong>True real-time lip sync</strong> — Her mouth shapes are driven live off the actual
+                            incoming audio wave—whether she's speaking through local TTS or a live Gemini voice stream,
+                            nothing is pre-baked.</li>
+                        <li><strong>She actually hears your music</strong> — By tapping into a live hardware audio
+                            visualizer feed, Tiyara feels the real tempo and energy of whatever song is playing on your
+                            system and matches her dancing to the beat.</li>
+                        <li><strong>Choreographed by the AI</strong> — Because the AI agent can emit inline control tags
+                            mid-sentence, asking it to "have Tiyara switch into her kimono and do a celebratory wave"
+                            happens naturally right in the middle of your chat.</li>
+                    </ul>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/tiyara.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-live-voice" data-filter="demo">
+                <header class="entry-header">
+                    <span class="blog-tag">Demo</span>
+                    <h2>11. Gemini Live Voice Mode</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Sometimes your hands are busy holding a mug (or a cat) and you just want to talk things through
+                        out loud. Live Voice mode opens a direct, two-way WebSocket audio stream with Gemini's Live API,
+                        giving you natural, real-time spoken conversations without that awkward "record, wait,
+                        transcribe, wait, reply" walkie-talkie delay. It connects straight to a streamlined
+                        13-tool registry curated specifically for snappy voice control—letting you command Tiyara,
+                        automate browser tabs, and kick off web research using nothing but your voice.</p>
+                    <p>Because voice control is powerful, every single tool-execution request coming through that socket
+                        has to pass strict origin verification first, ensuring only the authorized browser view can
+                        trigger actions and keeping any outside interference locked out. And if you ask a deep
+                        research question that takes a minute to dig into, RAW spins up a background "deep thinker"
+                        agent to do the heavy reading quietly while you and the voice assistant keep chatting—gently
+                        handing you the findings once they're ready instead of leaving you sitting in awkward
+                        silence.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/live-voice.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-pwa-packaging" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>12. Turning Any Site Into a Native App</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Some websites deserve their own cosy home in your macOS Dock rather than getting buried between
+                        forty open tabs. RAW can wrap almost any website on the internet into a genuine,
+                        standalone macOS <code>.app</code> bundle—not a glorified bookmark shortcut, but a real native
+                        application with its own window and Dock icon.</p>
+                    <ul>
+                        <li><strong>Automatic manifest harvesting</strong> — A smart manifest generator pulls the site's
+                            metadata, theme colours, and branding automatically so your new app looks like it was
+                            custom-built for macOS.</li>
+                        <li><strong>Crisp icon synthesis</strong> — Nobody wants a blurry 16×16 pixel favicon stretched
+                            to the size of a coaster, so RAW upscales and synthesizes site icons into proper
+                            multi-resolution Apple <code>.icns</code> icon sets.</li>
+                        <li><strong>Clean, sandboxed titlebars</strong> — Your packaged apps launch in isolated,
+                            borderless windows complete with native macOS traffic-light buttons and discreet back,
+                            forward, and reload controls tucked right into the titlebar.</li>
+                        <li><strong>Centralized app registry</strong> — An internal registry keeps track of every app's
+                            bundle path, unique ID, and metadata, greeting you with a native macOS notification the
+                            second your freshly minted app is ready to launch.</li>
+                    </ul>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/pwa-packaging.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-chat" data-filter="demo">
+                <header class="entry-header">
+                    <span class="blog-tag">Demo</span>
+                    <h2>13. Chat — The Conversational AI Workspace</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>When you don't need the AI agent clicking around your tabs and you just want a quiet,
+                        distraction-free space to brainstorm or write code, <strong>Chat</strong> is your dedicated
+                        sanctuary. Built for deep multi-turn conversations with crisp markdown rendering and
+                        syntax-highlighted code blocks, it lets you hot-swap between Gemini, OpenRouter cloud models, or
+                        a 100% offline local Ollama model mid-conversation without ever losing the thread of what you
+                        were talking about.</p>
+                    <p>Replies stream in smoothly token by token, and every single chat is saved locally on your
+                        machine—so if you close the window to go touch grass and come back three days later, your
+                        conversation picks up right where you left off without you having to re-explain a thing.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/chat.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-localdrive" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>14. LocalDrive — Secure Local File Sharing</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Why is it that in 2026, sending a single photo from your phone to your laptop still tempts people
+                        into emailing it to themselves or uploading it to a cloud drive three continents away?
+                        <strong>LocalDrive</strong> puts an end to that madness by spinning up a featherweight local
+                        HTTP file server right on your machine, guarded by a cryptographically secure, short-lived token
+                        that only unlocks that specific transfer instead of leaving an open door on your network.</p>
+                    <p>Connecting is effortless: just point your phone's camera at the QR code on screen and your
+                        devices link up directly over your local Wi-Fi. There are no accounts to log into, no
+                        third-party servers snooping on your files, and the access token politely expires on its own
+                        when you're done.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/localdrive.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-vpnextender" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>15. VPNExtender — Mobile Tethering Cockpit</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p><strong>VPNExtender</strong> is the friendly mission control panel for sharing your desktop's
+                        encrypted VPN tunnel with your phone, tablet, or any other device lounging on your Wi-Fi. It crafts fresh VPN configurations on the fly and displays them as a clean QR code—just scan
+                        it with your phone's camera and your mobile traffic is instantly tucked into the exact same
+                        protected tunnel as your computer, without typing a single cryptographic key by hand.
+                    </p>
+                    <p>Under the hood, it remembers and reuses credentials for devices you've already trusted, sweeps
+                        away old peer configurations that aren't being used anymore, and carefully guards your host
+                        computer's routing table so sharing your connection never messes with your main machine's
+                        network stability.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/vpnextender.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-vrmposeeditor" data-filter="demo">
+                <header class="entry-header">
+                    <span class="blog-tag">Demo</span>
+                    <h2>16. VRMPoseEditor — Posing Tiyara</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Ever wanted to play animation director without learning a hundred Blender hotkeys?
+                        <strong>VRMPoseEditor</strong> is the visual studio where Tiyara's custom poses and expressions
+                        come to life. It gives you a full 3D viewport equipped with intuitive
+                        inverse-kinematics gizmos—so when you grab a hand or a foot and drag it, the rest of her arm or
+                        leg follows along naturally instead of making you rotate every elbow and shoulder joint one by
+                        one.</p>
+                    <p>It even runs live wind physics on her hair and outfit right inside the editor, so you can see how
+                        a pose flows in motion rather than designing something that looks like a statue. Once
+                        you're happy with a pose, its joint offsets save straight into the avatar library—meaning the AI
+                        agent can immediately trigger your custom creation by name in your next chat.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/vrmposeeditor.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-ctf" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>17. CTF Security Dashboard</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>For the ethical hackers, bug hunters, and curious tinkerers in the room, the <strong>CTF Security
+                            Dashboard</strong> is a dedicated testing laboratory that runs strictly inside RAW's
+                        isolated sandbox partition—far away from your personal cookies and real browsing sessions. From one clean cockpit, you can flip individual security switches—including CORS
+                        enforcement, SSL behaviour, cookie rules, same-origin policy, custom headers, storage access,
+                        and <code>eval</code> permissions—to recreate specific vulnerable setups whenever you need
+                        them.</p>
+                    <p>Even better, it teams up directly with the AI agent's specialized CTF toolkit, allowing the agent
+                        to open untrusted target URLs inside the blast-proof sandbox and test payloads against them with
+                        zero risk of anything spilling over into your everyday browser.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/ctf.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-ailogs" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>18. AILogs Inspector</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>An AI agent operating your browser should never be a mysterious black box. Every single AI
+                        session in RAW leaves behind a cryptographically signed audit trail, and <strong>AILogs
+                            Inspector</strong> is the clean, readable viewer built to let you explore it. You
+                        can trace complete reasoning chains step by step, see the exact sequence of tools the agent
+                        called, and check token usage metrics for every turn—perfect both for squashing bugs and for
+                        simply verifying what your digital co-pilot did while you were away from the keyboard.
+                    </p>
+                    <p>Because every log entry is sealed with an HMAC-SHA256 signature, nothing can be quietly edited or
+                        tampered with after the fact—giving you total confidence that what you're reading is the exact
+                        history of that session.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/ailogs.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-aifiles" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>19. AIFiles Manager</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Most Downloads folders eventually look like a digital junk drawer full of mystery PDFs and
+                        screenshots named <code>Untitled (14).png</code>. To keep your computer tidy, <strong>AIFiles
+                            Manager</strong> (mapped out in my <code>RAW_AI_File_Logic.svg</code> flowcharts)
+                        gives you a dedicated, organized home for everything the AI agent has created or fetched for
+                        you—including task screenshots, rendered PDFs, and media grabbed via XDown—all neatly linked
+                        back to the exact conversation that produced them.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/aifiles.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-encoder" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>20. Encoder / Decoder</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Sometimes you just need to decode a Base64 string without pasting sensitive tokens into a random
+                        ad-riddled website on the internet. The built-in <strong>Encoder / Decoder</strong> is
+                        a snappy, focused utility for instant Base64 encoding and decoding, plus a fun periodic-element
+                        cipher transformer for whenever you're in a puzzle-solving mood—always right there in your
+                        browser when you need it.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/encoder.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-morsecode" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>21. MorseCode</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Does a modern web browser strictly <em>need</em> a Morse code translator? Maybe not—but life is
+                        much more fun with one. <strong>MorseCode</strong> is a playful text-to-Morse utility
+                        complete with both audio and visual playback, so you can type out a secret message and listen to
+                        it tap across your speakers or watch it blink on screen—a cosy little reminder that software is
+                        allowed to have a soul.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/morsecode.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-crashlogs" data-filter="tech-deep-dive">
+                <header class="entry-header">
+                    <span class="blog-tag">Tech Deep-Dive</span>
+                    <h2>22. CrashLogs Diagnostics</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>Even the most lovingly built software occasionally trips over its own shoelaces. When a
+                        tab or process does misbehave, <strong>CrashLogs Diagnostics</strong> gives you a calm,
+                        centralized, human-readable view of crash dumps and process telemetry—saving you from digging
+                        through cryptic system folders so you can quickly see what happened or attach clean details to a
+                        bug report.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/crashlogs.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <hr class="entry-divider">
+
+            <article class="entry" id="entry-settings" data-filter="changelog">
+                <header class="entry-header">
+                    <span class="blog-tag">Changelog</span>
+                    <h2>23. Settings & Customization Engine</h2>
+                    <div class="author-meta-row">
+            <div class="author-left">
+              <div class="author-avatar-chip">AB</div>
+              <div class="author-info-text">
+                <div class="author-name">Arnab Biswas</div>
+                <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+              </div>
+            </div>
+            <div class="author-meta-right">
+              <span>Oct 20, 2026</span>
+              <span>•</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+                </header>
+
+                <div class="entry-body">
+                    <p>To tie the whole house together (which I also mapped out in
+                        <code>RAW_MVP_Full_Map_Viewer.html</code> and <code>Hand_Book.md</code>), every single
+                        system you've read about above can be tailored from one unified dashboard, backed by an
+                        encrypted local preference store on your machine so your setup stays safe and persistent without
+                        ever forcing you to create a cloud account.</p>
+                    <ul>
+                        <li><strong>Your search, your rules</strong> — Swap your default search engine effortlessly
+                            between Google, DuckDuckGo, Bing, or any custom provider you prefer.</li>
+                        <li><strong>Brain & voice tuning</strong> — Pick between local Ollama models and cloud AI
+                            providers, choose specific model variants, dial in the reasoning/thinking depth, and
+                            audition your favourite assistant voice.</li>
+                        <li><strong>Make Tiyara yours</strong> — Customize Tiyara's name, share your own background bio
+                            so her replies always feel personal and relevant, and set her catchphrases and behavioural
+                            style.</li>
+                        <li><strong>Clear AI boundaries</strong> — Configure strict domain access rules and blocklists
+                            so the AI agent only ever visits websites you have explicitly approved.</li>
+                        <li><strong>Audio & dance vibes</strong> — Choose your active TTS synthesis engine, adjust the
+                            speaking pace, and decide whether Tiyara should automatically start dancing whenever your
+                            music kicks in.</li>
+                    </ul>
+                    <p>And that is the complete, top-to-bottom tour of RAW as it stands today! Thank you for
+                        hanging out and reading through all twenty-three chapters—more modules will get their own cosy
+                        entries right here as they ship, so this page will keep growing right alongside the browser
+                        itself.</p>
+                </div>
+
+                <div class="entry-media">
+                    <video controls poster="assets/placeholder.jpg">
+                        <source src="assets/videos/settings.mp4" type="video/mp4">
+                        Your browser doesn't support embedded video.
+                    </video>
+                </div>
+            </article>
+
+            <footer class="app-footer">
+              <span>&copy; 2026 Arnab Biswas. All rights reserved.</span>
+              <span>Designed and built solo for privacy, speed, and tactile craft.</span>
+            </footer>
+        </main>
+    </div> <!-- .app-content-body -->
+  </div> <!-- .app-viewport-frame -->
+
+  <script type="module" src="raw-blogs-script.js"></script>
+</body>
+</html>
