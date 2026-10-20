@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: The Disappearing Code Mystery — RAW Journal</title>
+  <link rel="stylesheet" href="../raw-blogs-css.css">
+  <style>
+    .case-study-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 36px 64px;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: var(--color-accent-soft);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      transition: all 0.2s ease;
+    }
+    .btn-back:hover {
+      background: var(--color-accent);
+      color: #fff;
+      transform: translateX(-2px);
+      box-shadow: 0 0 16px var(--color-accent-glow);
+    }
+    .case-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .case-header h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--color-text-title);
+      line-height: 1.25;
+      margin: 16px 0 12px;
+    }
+    .case-subtitle {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: #94a3b8;
+      margin-bottom: 18px;
+    }
+    .case-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 36px;
+    }
+    .case-section {
+      margin-bottom: 40px;
+    }
+    .case-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .case-section h2::before {
+      content: "";
+      width: 4px;
+      height: 20px;
+      background: #00ff88;
+      border-radius: 4px;
+      box-shadow: 0 0 10px #00ff88;
+    }
+    .step-card {
+      background: #11121a;
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-card);
+      padding: 22px 26px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s ease;
+    }
+    .step-card:hover {
+      border-color: #2e3247;
+    }
+    .step-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .cli-box {
+      background: #090a0f;
+      border: 1px solid #1a1c28;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #38bdf8;
+      margin: 12px 0 16px;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+    .callout-box {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: var(--radius-card);
+      padding: 22px 26px;
+      margin-top: 32px;
+    }
+    .callout-box h3 {
+      font-size: 1.15rem;
+      color: #818cf8;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    ul.takeaways-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    ul.takeaways-list li {
+      position: relative;
+      padding-left: 24px;
+      color: #cbd5e1;
+    }
+    ul.takeaways-list li::before {
+      content: "•";
+      position: absolute;
+      left: 6px;
+      color: #818cf8;
+      font-size: 1.3rem;
+      line-height: 1;
+      top: -2px;
+    }
+    @media (max-width: 640px) {
+      .case-study-container {
+        padding: 20px 16px 48px;
+      }
+      .case-header h1 {
+        font-size: 1.7rem;
+      }
+      .investigation-step {
+        padding: 16px 14px;
+      }
+      .root-cause-card {
+        padding: 16px 14px;
+      }
+      .lessons-card {
+        padding: 16px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-viewport-frame" style="overflow-y: auto;">
+    <nav class="app-navbar">
+      <div class="nav-left">
+        <div class="nav-brand-group">
+          <span class="brand-badge">[R]</span>
+          <span class="brand-title">RAW</span>
+          <span class="brand-sub">Post-Mortem</span>
+        </div>
+      </div>
+      <div class="nav-right">
+        <a href="../index.html#entry-ui-overview" class="btn-back">← Back to RAW Journal</a>
+      </div>
+    </nav>
+
+    <div class="case-study-container">
+      <header class="case-header">
+        <div class="case-badge">🔍 Forensic Case Study</div>
+        <h1>The Disappearing Code Mystery</h1>
+        <div class="case-subtitle">"Case study written by AI — the developer Arnab was thoroughly traumatized"</div>
+        <div class="case-meta">
+          <span>Author: Arnab Biswas</span>
+          <span>•</span>
+          <span>Git Reflog Forensics & Electron IPC</span>
+          <span>•</span>
+          <span>Post-Mortem</span>
+        </div>
+      </header>
+
+      <section class="case-section">
+        <h2>Background</h2>
+        <p>On September 17, 2026, the <code>raw://ai-logs/</code> page was working perfectly, successfully fetching and displaying AI logs. Two days later, on September 19, the UI began throwing a fatal IPC error:</p>
+        <div class="cli-box" style="color: #f87171;">Error: No handler registered for 'get-ai-logs'</div>
+        <p>The developer clearly remembered writing the IPC handler in <code>main.js</code> and securely reading logs via Electron's <code>safeStorage</code>. However, inspecting the active codebase revealed absolutely no trace of <code>get-ai-logs</code>, <code>clear-ai-logs</code>, or the <code>safeStorage</code> decryption logic in the backend.</p>
+        <p>The front-end code (<code>preload.js</code> and <code>AILogs/index.html</code>) remained perfectly intact, creating a baffling "gaslighting" effect where the UI was attempting to call a backend function that apparently never existed.</p>
+      </section>
+
+      <section class="case-section">
+        <h2>Investigation</h2>
+        <p>Initial <code>git log</code> and <code>grep</code> searches across the active repository yielded no results for the missing backend code. The only commit related to the feature was <code>"Added Fix for finger print"</code>, which introduced the HTML/CSS/JS for the frontend and added the <code>getAiLogs</code> bridge to <code>preload.js</code>, but omitted the backend implementation.</p>
+        <p>A deeper forensic analysis using Git's hidden reflog uncovered the truth:</p>
+        <div class="cli-box">$ git log -S "get-ai-logs" --walk-reflogs -p</div>
+        <p>The hidden Git history revealed the exact missing code block that had been orphaned:</p>
+        <div class="cli-box" style="color: #cbd5e1;">
+<span style="color: #64748b;">// Recovered from orphaned reflog commit:</span><br>
+ipcMain.handle('clear-ai-logs', async () =&gt; {<br>
+&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const logPath = path.join(app.getPath('userData'), 'AI_Res_Log.txt');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await fs.promises.writeFile(logPath, '');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return true;<br>
+&nbsp;&nbsp;} catch (e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return false;<br>
+&nbsp;&nbsp;}<br>
+});<br><br>
+<span style="color: #64748b;">// Crash Logs IPC</span><br>
+ipcMain.handle('get-crash-logs', async () =&gt; { ... });
+        </div>
+      </section>
+
+      <section class="case-section">
+        <h2>The Sequence of Events (Root Cause)</h2>
+        <p style="margin-bottom: 20px;">The mystery disappearance was caused by an unfortunate sequence of Git operations:</p>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">01</span> The Code Was Written &amp; Committed</div>
+          <p>The backend implementation in <code>main.js</code> was completed and committed locally.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">02</span> The Frontend Was Committed Separately</div>
+          <p>The UI (<code>index.html</code> and <code>preload.js</code>) was committed in a separate, older commit (<code>"Added Fix for finger print"</code>).</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">03</span> The Fatal Command</div>
+          <p>While working on the VPN integration on the <code>RAW-MVP-Wireguard</code> branch, a commit was made (<code>"Added VLSS_REALITY"</code>). Shortly after, this command was executed:</p>
+          <div class="cli-box">$ git reset --hard HEAD~1</div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">04</span> The Erasure &amp; Blast Radius</div>
+          <p><code>git reset --hard</code> forcefully rewound the branch, permanently untethering unpushed commits. The commit containing the <code>main.js</code> IPC handlers was caught in the blast radius and cast into Git's unreachable reflog.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">05</span> The Gaslighting Aftermath</div>
+          <p>Because frontend code lived in an older commit before the reset point, it survived unscathed. This left the app calling backend handlers that Git had erased—including <code>get-crash-logs</code>, <code>clear-crash-logs</code>, and <code>get-health-stats</code>.</p>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <h2>Resolution</h2>
+        <ol class="analysis-list">
+          <li>The missing AI backend handlers (<code>get-ai-logs</code> and <code>clear-ai-logs</code>) were cleanly restored into <code>src/App/store.js</code>.</li>
+          <li>The missing Crash Logs and Health Stats handlers (<code>get-crash-logs</code>, <code>clear-crash-logs</code>, <code>get-health-stats</code>) were fully restored to <code>src/App/store.js</code>.</li>
+          <li>The <code>safeStorage.decryptString</code> logic was re-implemented to safely read encrypted <code>AI_Res_Log.txt</code> and <code>Privacy_Errors_Log.txt</code> files.</li>
+          <li style="color: #34d399; font-weight: 600;">✓ The developer's sanity was fully restored.</li>
+        </ol>
+      </section>
+
+      <section class="callout-box">
+        <h3>💡 Engineering Takeaways</h3>
+        <ul class="takeaways-list">
+          <li><code>git reset --hard</code> is ruthless and gives no confirmation before permanently unlinking unpushed commits and uncommitted changes.</li>
+          <li>When code vanishes but UI persists, <code>git reflog</code> is your ultimate source of truth to prove code was actually written and pinpoint where it was detached.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

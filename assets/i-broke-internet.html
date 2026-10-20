@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Recovering from a Kernel-Level WireGuard Routing Blackhole — RAW Journal</title>
+  <link rel="stylesheet" href="../raw-blogs-css.css">
+  <style>
+    /* Case study page specific refinements */
+    .case-study-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 36px 64px;
+    }
+    .back-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--color-frame-border);
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: var(--color-accent-soft);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      transition: all 0.2s ease;
+    }
+    .btn-back:hover {
+      background: var(--color-accent);
+      color: #fff;
+      transform: translateX(-2px);
+      box-shadow: 0 0 16px var(--color-accent-glow);
+    }
+    .case-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .case-header h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--color-text-title);
+      line-height: 1.25;
+      margin: 16px 0 20px;
+    }
+    .case-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 36px;
+    }
+    .case-section {
+      margin-bottom: 40px;
+    }
+    .case-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .case-section h2::before {
+      content: "";
+      width: 4px;
+      height: 20px;
+      background: #00ff88;
+      border-radius: 4px;
+      box-shadow: 0 0 10px #00ff88;
+    }
+    .step-card {
+      background: #11121a;
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-card);
+      padding: 22px 26px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s ease;
+    }
+    .step-card:hover {
+      border-color: #2e3247;
+    }
+    .step-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #a5b4fc;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .cli-box {
+      background: #090a0f;
+      border: 1px solid #1a1c28;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #38bdf8;
+      margin: 10px 0 14px;
+      overflow-x: auto;
+    }
+    .callout-box {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-card);
+      padding: 22px 26px;
+      margin-top: 32px;
+    }
+    .callout-box h3 {
+      font-size: 1.15rem;
+      color: #34d399;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    ol.analysis-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-left: 20px;
+      color: var(--color-text-body);
+    }
+    ol.analysis-list li strong {
+      color: #fff;
+    }
+    @media (max-width: 640px) {
+      .case-study-container {
+        padding: 20px 16px 48px;
+      }
+      .case-header h1 {
+        font-size: 1.7rem;
+      }
+      .step-card {
+        padding: 16px 14px;
+      }
+      .callout-box {
+        padding: 16px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-viewport-frame" style="overflow-y: auto;">
+    <nav class="app-navbar">
+      <div class="nav-left">
+        <div class="nav-brand-group">
+          <span class="brand-badge">[R]</span>
+          <span class="brand-title">RAW</span>
+          <span class="brand-sub">Post-Mortem</span>
+        </div>
+      </div>
+      <div class="nav-right">
+        <a href="../index.html#entry-ui-overview" class="btn-back">← Back to RAW Journal</a>
+      </div>
+    </nav>
+
+    <div class="case-study-container">
+      <header class="case-header">
+        <div class="case-badge">⚠️ Incident Post-Mortem</div>
+        <h1>Recovering from a Kernel-Level WireGuard Routing Blackhole</h1>
+        <div class="case-meta">
+          <span>Author: Arnab Biswas</span>
+          <span>•</span>
+          <span>Systems & Networking Architecture</span>
+          <span>•</span>
+          <span>Root Cause Analysis</span>
+        </div>
+      </header>
+
+      <section class="case-section">
+        <h2>Incident Overview</h2>
+        <p>On September 18, 2026, all internet connectivity on a macOS machine was abruptly and completely severed upon reboot. Browsers failed to load, terminal pings timed out, and DNS resolution collapsed. The incident occurred during a backend migration of a custom dual-engine web browser (RAW Browser) from WireGuard to VLESS+REALITY.</p>
+      </section>
+
+      <section class="case-section">
+        <h2>Technical Root Cause</h2>
+        <p>The core issue was a catastrophic desynchronization between a local macOS background daemon and the remote server state:</p>
+        <ol class="analysis-list">
+          <li><strong>The Ghost Daemon:</strong> When WireGuard was originally installed, a macOS Launch Daemon (<code>com.raw.wireguard.plist</code>) was configured to automatically establish the VPN tunnel (<code>wg-quick up wg0</code>) in the background every time the system booted up.</li>
+          <li><strong>The Server Purge:</strong> During the migration, the WireGuard server on the Azure VPS (a 1GB RAM instance) was completely purged to free up system memory for the new VLESS engine.</li>
+          <li><strong>The Boot Blackhole:</strong> When the MacBook rebooted, the hidden launch daemon triggered and aggressively hijacked the system's entire routing table using WireGuard's <code>AllowedIPs = 0.0.0.0/0</code>. Because the remote Azure server was dead, the Mac started indiscriminately throwing 100% of the device's internet traffic into a dead digital black hole.</li>
+          <li><strong>The Panic Trigger:</strong> Logging in to find the internet completely severed and unaware the daemon was already running, running <code>sudo wg-quick up ./wg0.conf</code> manually in the terminal only locked the dead static routes in further.</li>
+        </ol>
+      </section>
+
+      <section class="case-section">
+        <h2>The Recovery (Step-by-Step Analysis)</h2>
+        <p style="margin-bottom: 20px;">A multi-stage Unix networking recovery was executed to regain control of the machine:</p>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">01</span> Phase 1: Attempted Graceful Teardown</div>
+          <div class="cli-box">$ sudo wg-quick down ./wg0.conf</div>
+          <p>Attempted to shut down the interface gracefully. However, because configuration files were actively being deleted/modified, <code>wg-quick</code> lost track of the interface and threw <code>wg-quick: 'wg0' is not a WireGuard interface</code>. The system was permanently trapped with a dead static route.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">02</span> Phase 2: Kernel Routing Flush</div>
+          <div class="cli-box">$ sudo route flush<br>$ sudo route add default 192.168.1.1</div>
+          <p>Recognizing the kernel routing table was hijacked, used the BSD <code>route</code> command to completely wipe the static routing table (<code>route flush</code>) and manually reinstate the local home router (<code>192.168.1.1</code>) as the default gateway.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">03</span> Phase 3: Hardware Interface Bounce</div>
+          <div class="cli-box">$ sudo ifconfig en0 down &amp;&amp; sleep 2 &amp;&amp; sudo ifconfig en0 up</div>
+          <p>To ensure the Mac's networking daemon (<code>mDNSResponder</code> / <code>configd</code>) picked up the fresh routing table, performed a hard bounce of the physical Wi-Fi hardware interface (<code>en0</code>). This forced the OS to request a new DHCP lease and rebuild the basic local network stack.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-title"><span class="step-num">04</span> Phase 4: DNS Stack Rebuild</div>
+          <div class="cli-box">$ ping -c 3 8.8.8.8<br>$ sudo networksetup -setdnsservers "Wi-Fi" 8.8.8.8 1.1.1.1</div>
+          <p>Direct ping to Google's <code>8.8.8.8</code> proved raw IP connectivity was restored. However, websites still failed because WireGuard had hijacked system DNS resolvers. Used the macOS-specific <code>networksetup</code> utility to forcefully rewrite system DNS records back to Google (<code>8.8.8.8</code>) and Cloudflare (<code>1.1.1.1</code>).</p>
+          <p style="margin-top: 10px; color: #34d399; font-weight: 600;">✓ Result: Full internet connectivity was restored.</p>
+        </div>
+      </section>
+
+      <section class="callout-box">
+        <h3>💡 Lessons Learned & Architectural Changes</h3>
+        <p>This incident perfectly highlights the dangers of <strong>Kernel-level VPNs</strong> (like WireGuard/IPsec) for application-specific tunneling. Operating at the OS kernel level, a rogue background daemon or a single configuration mismatch can completely take down host machine internet access.</p>
+        <p style="margin-top: 12px;"><strong>The Solution:</strong> For RAW Browser's built-in VPN, the architecture migrated from WireGuard to <strong>VLESS+REALITY (Xray)</strong>. Unlike WireGuard, Xray operates purely in user-space as a local SOCKS5 proxy (port 10808). It only intercepts traffic explicitly handed to it by the browser application, making kernel routing blackholes physically impossible.</p>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

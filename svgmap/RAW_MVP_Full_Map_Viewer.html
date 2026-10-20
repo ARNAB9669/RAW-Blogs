@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RAW-MVP Full Architecture Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0D1117;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    color: #E6EDF3;
+  }
+
+  /* ── Toolbar ── */
+  #toolbar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(22,27,34,0.92);
+    border: 1px solid #30363D;
+    border-radius: 12px;
+    padding: 8px 14px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  }
+
+  #toolbar span {
+    font-size: 13px;
+    color: #8B949E;
+    user-select: none;
+  }
+
+  #zoom-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #58A6FF;
+    min-width: 44px;
+    text-align: center;
+  }
+
+  .tb-btn {
+    background: #21262D;
+    border: 1px solid #30363D;
+    color: #E6EDF3;
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    user-select: none;
+  }
+  .tb-btn:hover { background: #30363D; border-color: #58A6FF; }
+
+  .tb-sep { width: 1px; height: 20px; background: #30363D; }
+
+  /* ── Hint bar ── */
+  #hint {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    font-size: 12px;
+    color: #8B949E;
+    background: rgba(22,27,34,0.85);
+    border: 1px solid #21262D;
+    border-radius: 8px;
+    padding: 5px 14px;
+    backdrop-filter: blur(8px);
+  }
+
+  /* ── Canvas ── */
+  #canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    cursor: grab;
+    overflow: hidden;
+  }
+  #canvas.grabbing { cursor: grabbing; }
+
+  /* ── SVG wrapper ── */
+  #svg-wrap {
+    position: absolute;
+    top: 0; left: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+
+  /* Override mermaid's max-width cap */
+  #svg-wrap svg {
+    max-width: none !important;
+    display: block;
+  }
+
+  /* ── Loading ── */
+  #loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0D1117;
+    z-index: 1000;
+    gap: 14px;
+  }
+  #loader .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid #21262D;
+    border-top-color: #58A6FF;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loader p { color: #8B949E; font-size: 14px; }
+
+  /* ── Minimap ── */
+  #minimap {
+    position: fixed;
+    bottom: 44px;
+    right: 14px;
+    width: 180px;
+    height: 120px;
+    background: rgba(22,27,34,0.9);
+    border: 1px solid #30363D;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 998;
+    display: none;
+  }
+  #minimap canvas { width: 100%; height: 100%; }
+  #minimap-viewport {
+    position: absolute;
+    border: 2px solid #58A6FF;
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="spinner"></div>
+  <p>Loading RAW-MVP Architecture Map…</p>
+</div>
+
+<div id="toolbar">
+  <a href="../index.html" class="tb-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:#58A6FF;font-weight:600;">← Back to Journal</a>
+  <div class="tb-sep"></div>
+  <span>RAW-MVP Full Architecture Map</span>
+  <div class="tb-sep"></div>
+  <button class="tb-btn" id="btn-zoom-out">−</button>
+  <span id="zoom-label">100%</span>
+  <button class="tb-btn" id="btn-zoom-in">+</button>
+  <button class="tb-btn" id="btn-reset">Fit</button>
+  <div class="tb-sep"></div>
+  <button class="tb-btn" id="btn-1x">100%</button>
+  <button class="tb-btn" id="btn-2x">200%</button>
+</div>
+
+<div id="canvas">
+  <div id="svg-wrap"></div>
+</div>
+
+<div id="hint">Scroll to zoom &middot; Drag to pan &middot; Double-click to fit</div>
+
+<script>
+(async () => {
+  const canvas   = document.getElementById('canvas');
+  const svgWrap  = document.getElementById('svg-wrap');
+  const loader   = document.getElementById('loader');
+  const zoomLabel= document.getElementById('zoom-label');
+
+  // ── Load SVG ──────────────────────────────────────────────────
+  let svgText;
+  try {
+    const res = await fetch('RAW_MVP_Full_Map.svg');
+    svgText = await res.text();
+  } catch(e) {
+    loader.innerHTML = '<p style="color:#F85149">Failed to load SVG. Open this HTML from the same folder as the .svg file.</p>';
+    return;
+  }
+
+  // Inject SVG
+  svgWrap.innerHTML = svgText;
+  const svgEl = svgWrap.querySelector('svg');
+
+  // Remove width:100% and max-width so it renders at natural size
+  svgEl.removeAttribute('width');
+  svgEl.style.maxWidth = 'none';
+  svgEl.style.width  = '';
+  svgEl.style.height = '';
+
+  // Get natural size from viewBox
+  const vb = svgEl.getAttribute('viewBox') || '0 0 2000 2000';
+  const [,, vbW, vbH] = vb.trim().split(/\s+/).map(Number);
+
+  // Set explicit px dimensions so layout is stable
+  svgEl.setAttribute('width',  vbW);
+  svgEl.setAttribute('height', vbH);
+
+  loader.style.display = 'none';
+
+  // ── Pan + Zoom state ──────────────────────────────────────────
+  let scale = 1, tx = 0, ty = 0;
+  const MIN_SCALE = 0.05, MAX_SCALE = 8;
+
+  function applyTransform() {
+    svgWrap.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
+    zoomLabel.textContent = Math.round(scale * 100) + '%';
+  }
+
+  function fitToScreen() {
+    const cw = canvas.clientWidth, ch = canvas.clientHeight;
+    scale = Math.min(cw / vbW, ch / vbH) * 0.92;
+    tx = (cw - vbW * scale) / 2;
+    ty = (ch - vbH * scale) / 2;
+    applyTransform();
+  }
+
+  // Initial fit
+  fitToScreen();
+
+  // ── Zoom helpers ──────────────────────────────────────────────
+  function zoomAt(cx, cy, delta) {
+    const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * delta));
+    const ratio = newScale / scale;
+    tx = cx - ratio * (cx - tx);
+    ty = cy - ratio * (cy - ty);
+    scale = newScale;
+    applyTransform();
+  }
+
+  // ── Wheel zoom ────────────────────────────────────────────────
+  canvas.addEventListener('wheel', e => {
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+    const factor = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+    zoomAt(cx, cy, factor);
+  }, { passive: false });
+
+  // ── Drag to pan ───────────────────────────────────────────────
+  let dragging = false, lastX = 0, lastY = 0;
+
+  canvas.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    dragging = true;
+    lastX = e.clientX; lastY = e.clientY;
+    canvas.classList.add('grabbing');
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    tx += e.clientX - lastX;
+    ty += e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    applyTransform();
+  });
+  window.addEventListener('mouseup', () => {
+    dragging = false;
+    canvas.classList.remove('grabbing');
+  });
+
+  // ── Touch pan + pinch zoom ────────────────────────────────────
+  let lastTouches = [];
+  canvas.addEventListener('touchstart', e => {
+    lastTouches = Array.from(e.touches);
+  }, { passive: true });
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    const touches = Array.from(e.touches);
+    if (touches.length === 1 && lastTouches.length === 1) {
+      tx += touches[0].clientX - lastTouches[0].clientX;
+      ty += touches[0].clientY - lastTouches[0].clientY;
+      applyTransform();
+    } else if (touches.length === 2 && lastTouches.length === 2) {
+      const dist = (a, b) => Math.hypot(a[0].clientX-a[1].clientX, a[0].clientY-a[1].clientY);
+      const prevDist = dist(lastTouches, lastTouches);
+      const currDist = dist(touches, touches);
+      if (prevDist > 0) {
+        const mx = (touches[0].clientX + touches[1].clientX) / 2;
+        const my = (touches[0].clientY + touches[1].clientY) / 2;
+        zoomAt(mx, my, currDist / prevDist);
+      }
+    }
+    lastTouches = touches;
+  }, { passive: false });
+
+  // ── Double-click reset ────────────────────────────────────────
+  canvas.addEventListener('dblclick', fitToScreen);
+
+  // ── Keyboard shortcuts ────────────────────────────────────────
+  window.addEventListener('keydown', e => {
+    const cx = canvas.clientWidth / 2, cy = canvas.clientHeight / 2;
+    if (e.key === '=' || e.key === '+') zoomAt(cx, cy, 1.25);
+    if (e.key === '-')                   zoomAt(cx, cy, 1/1.25);
+    if (e.key === '0' || e.key === 'f')  fitToScreen();
+    if (e.key === 'ArrowLeft')  { tx += 60; applyTransform(); }
+    if (e.key === 'ArrowRight') { tx -= 60; applyTransform(); }
+    if (e.key === 'ArrowUp')    { ty += 60; applyTransform(); }
+    if (e.key === 'ArrowDown')  { ty -= 60; applyTransform(); }
+  });
+
+  // ── Toolbar buttons ───────────────────────────────────────────
+  document.getElementById('btn-zoom-in').onclick  = () => zoomAt(canvas.clientWidth/2, canvas.clientHeight/2, 1.4);
+  document.getElementById('btn-zoom-out').onclick = () => zoomAt(canvas.clientWidth/2, canvas.clientHeight/2, 1/1.4);
+  document.getElementById('btn-reset').onclick    = fitToScreen;
+  document.getElementById('btn-1x').onclick       = () => { scale=1; tx=(canvas.clientWidth-vbW)/2; ty=(canvas.clientHeight-vbH)/2; applyTransform(); };
+  document.getElementById('btn-2x').onclick       = () => { scale=2; tx=(canvas.clientWidth-vbW*2)/2; ty=(canvas.clientHeight-vbH*2)/2; applyTransform(); };
+
+  // ── Resize handler ────────────────────────────────────────────
+  window.addEventListener('resize', fitToScreen);
+})();
+</script>
+</body>
+</html>

@@ -20,16 +20,33 @@
         </div>
         <div class="nav-pill-switcher">
           <a href="#" class="active">Engineering Journal</a>
-          <a href="#">Architecture</a>
-          <a href="#">Releases</a>
-          <a href="#">Documentation</a>
+          <a href="svgmap/RAW_MVP_Full_Map_Viewer.html">Architecture</a>
+          <button class="nav-theme-btn" id="theme-toggle-btn" type="button" aria-label="Light Mode" title="Light Mode">
+            <!-- Sun SVG -->
+            <svg class="theme-svg sun-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <span class="theme-btn-label">Light Mode</span>
+          </button>
         </div>
       </div>
       <div class="nav-right">
-        <div class="search-field-pill">
-          <span>🔍</span>
-          <input type="text" id="entry-search-input" placeholder="Search chapters or topics...">
-          <span class="kbd-shortcut">⌘K</span>
+        <div class="search-wrapper">
+          <div class="search-field-pill">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="entry-search-input" placeholder="Search chapters or topics..." autocomplete="off" spellcheck="false">
+            <button id="search-clear-btn" class="search-clear-btn" style="display:none;" title="Clear search" type="button">✕</button>
+            <span class="kbd-shortcut">⌘K</span>
+          </div>
+          <div id="search-results-dropdown" class="search-results-dropdown" style="display: none;"></div>
         </div>
         <a href="#" class="btn-cta-get">Get RAW &darr;</a>
       </div>
@@ -42,10 +59,6 @@
         <span class="divider">/</span>
         <span>ARCHITECTURE & SYSTEMS</span>
       </div>
-      <div class="meta-status-tags">
-        <span><span class="status-dot"></span>Internal Spec v2.4.0</span>
-        <span class="commit-badge">Commit 7b3fa9c</span>
-      </div>
     </div>
 
     <!-- Main Content Area -->
@@ -55,7 +68,7 @@
         <div class="toc-top-section">
           <div class="toc-header-row">
             <span class="toc-eyebrow">TABLE OF CONTENTS</span>
-            <span class="toc-chapter-badge">23 Chapters</span>
+            <span class="toc-chapter-badge" id="toc-count-badge">23 Chapters</span>
           </div>
           <ol class="toc-items-list" id="toc-list">
             <li><a href="#entry-ui-overview"><span class="toc-num">01</span> <span>RAW — A Browser Rebuilt From Scratch</span></a></li>
@@ -104,6 +117,13 @@
         <!-- Long-scroll article: every post lives here as its own entry, one after another -->
         <main class="article-stage" id="entries">
 
+            <div id="no-search-results" class="no-search-results" style="display: none;">
+              <div class="empty-icon">🔍</div>
+              <h3>No matching chapters found</h3>
+              <p>No content matches your query. Try searching for topics like "vpn", "tiyara", "privacy", "drm", or "tools".</p>
+              <button id="btn-clear-empty" class="btn-sidebar-tool" style="max-width: 160px; margin-top: 16px;">Clear Search</button>
+            </div>
+
             <article class="entry" id="entry-ui-overview" data-filter="ui-ux">
                 <header class="entry-header">
                     <span class="blog-tag">UI/UX</span>
@@ -116,11 +136,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -134,7 +150,7 @@
                         Electron, but completely re-engineered underneath with its own custom window management, an
                         uncompromising privacy shield, an intelligent AI agent, and a friendly companion hanging out
                         right on top. (Yes, there are real notes in my project repo titled
-                        <code>I broke-internet.md</code> and <code>I_was_about_to_go_mental_hospital.md</code> from the
+                        <code><a href="assets/i-broke-internet.html" target="_blank" rel="noopener noreferrer">I broke-internet.md</a></code> and <code><a href="assets/i-was-about-to-go-mental-hospital.html" target="_blank" rel="noopener noreferrer">I_was_about_to_go_mental_hospital.md</a></code> from the
                         debugging days, so I suffered so you don't have to.)</p>
 
 <blockquote class="callout-quote">
@@ -145,14 +161,13 @@
   <div class="terminal-header">
     <div class="terminal-title">
       <span class="terminal-dot"></span>
-      <span>raw-engine / git-log.txt</span>
+      <span>raw-engine / notes.txt</span>
     </div>
-    <span class="commit-hash">commit 9c420e1</span>
   </div>
   <div class="terminal-content">
     <div class="comment">// From the debugging trenches during my early multi-process overhaul:</div>
-    <div>commit 12a0: "I_broke_internet.md — IPC lock contention resolved across renderer isolates"</div>
-    <div>commit f49b: "I_was_about_to_go_mental_hospital.md — fixing zero-copy surface exchange on macOS"</div>
+    <div><a href="assets/i-broke-internet.html" target="_blank" rel="noopener noreferrer" class="terminal-link">"I_broke_internet.md — IPC lock contention resolved across renderer isolates"</a></div>
+    <div><a href="assets/i-was-about-to-go-mental-hospital.html" target="_blank" rel="noopener noreferrer" class="terminal-link">"I_was_about_to_go_mental_hospital.md — fixing zero-copy surface exchange on macOS"</a></div>
     <div class="comment" style="margin-top: 6px;">I suffered through thread contention so you never have to notice it.</div>
   </div>
 </div>
@@ -182,8 +197,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/ui-overview.mp4" type="video/mp4">
+                    <video controls preload="metadata" poster="assets/placeholder.jpg">
+                    <source src="assets/videos/ui-overview.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -203,11 +218,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -247,8 +258,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/tabs-navigation.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/tabs-navigation.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -268,11 +279,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -315,8 +322,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/privacy-engine.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/privacy-engine.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -336,11 +343,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -368,8 +371,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/ad-blocking.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/ad-blocking.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -389,11 +392,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -414,8 +413,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/native-drm.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/native-drm.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -435,11 +434,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -467,8 +462,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/xdown.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/xdown.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -488,11 +483,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -522,8 +513,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/vpn.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/vpn.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -543,11 +534,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -577,8 +564,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/speech-translation.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/speech-translation.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -598,11 +585,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -642,8 +625,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/ai-agent.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/ai-agent.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -663,11 +646,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -698,8 +677,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/tiyara.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/tiyara.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -719,11 +698,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -744,8 +719,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/live-voice.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/live-voice.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -765,11 +740,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -795,8 +766,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/pwa-packaging.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/pwa-packaging.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -816,11 +787,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -837,8 +804,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/chat.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/chat.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -858,11 +825,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -879,8 +842,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/localdrive.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/localdrive.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -900,11 +863,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -921,8 +880,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/vpnextender.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/vpnextender.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -942,11 +901,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -964,8 +919,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/vrmposeeditor.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/vrmposeeditor.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -985,11 +940,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -1006,8 +957,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/ctf.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/ctf.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -1027,11 +978,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -1049,8 +996,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/ailogs.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/ailogs.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -1070,11 +1017,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -1088,8 +1031,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/aifiles.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/aifiles.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -1109,11 +1052,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -1126,8 +1065,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/encoder.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/encoder.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -1147,11 +1086,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -1164,8 +1099,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/morsecode.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/morsecode.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -1185,11 +1120,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -1202,8 +1133,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/crashlogs.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/crashlogs.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -1223,11 +1154,7 @@
                 <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
               </div>
             </div>
-            <div class="author-meta-right">
-              <span>Oct 20, 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
+
           </div>
                 </header>
 
@@ -1259,8 +1186,8 @@
                 </div>
 
                 <div class="entry-media">
-                    <video controls poster="assets/placeholder.jpg">
-                        <source src="assets/videos/settings.mp4" type="video/mp4">
+                    <video controls preload="none" poster="assets/placeholder.jpg" data-lazy-video>
+                    <source data-src="assets/videos/settings.mp4" type="video/mp4">
                         Your browser doesn't support embedded video.
                     </video>
                 </div>
@@ -1273,6 +1200,17 @@
         </main>
     </div> <!-- .app-content-body -->
   </div> <!-- .app-viewport-frame -->
+
+  <!-- Meme Light Mode Modal Popup ("We don't do that here") -->
+  <div id="light-mode-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-label="We don't do that here">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <button id="modal-close-btn" class="modal-close-btn" type="button" aria-label="Close popup" title="Close">✕</button>
+      <div class="modal-image-wrapper">
+        <img src="assets/pop-up.png" alt="We don't do that here" class="meme-popup-img">
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="raw-blogs-script.js"></script>
 </body>
