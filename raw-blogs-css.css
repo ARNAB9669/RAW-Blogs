@@ -127,18 +127,28 @@ nav.app-navbar {
     border-bottom: 1px solid var(--color-frame-border);
     flex-shrink: 0;
     z-index: 1000;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+
+.nav-left,
+.nav-right {
+    min-width: 0;
+    flex-shrink: 1;
 }
 
 .nav-left {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 20px;
+    min-width: 0;
 }
 
 .nav-brand-group {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-shrink: 0;
 }
 
 .brand-badge {
@@ -176,12 +186,14 @@ nav.app-navbar {
     background: var(--color-pill-bg);
     border: 1px solid var(--color-pill-border);
     border-radius: var(--radius-pill);
-    padding: 3px;
+    padding: 3px 6px;
     gap: 2px;
+    min-width: 0;
     max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    flex-shrink: 0;
 }
 
 .nav-pill-switcher::-webkit-scrollbar {
@@ -229,6 +241,8 @@ nav.app-navbar {
     transition: all 0.2s ease;
     font-family: inherit;
     line-height: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .nav-theme-btn:hover {
@@ -354,8 +368,10 @@ nav.app-navbar {
 
 .search-wrapper {
     position: relative;
+    min-width: 0;
 }
 
+/* Remove the hardcoded 260px floor — let it shrink, cap it with max-width instead */
 .search-field-pill {
     display: flex;
     align-items: center;
@@ -367,7 +383,9 @@ nav.app-navbar {
     font-size: 0.82rem;
     color: var(--color-text-muted);
     transition: all 0.2s ease;
-    min-width: 260px;
+    min-width: 0;
+    max-width: 260px;
+    width: 100%;
     position: relative;
 }
 
