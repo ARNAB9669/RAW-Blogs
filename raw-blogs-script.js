@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const noResultsEl = document.getElementById('no-search-results');
     const clearEmptyBtn = document.getElementById('btn-clear-empty');
     const tocCountBadge = document.getElementById('toc-count-badge');
-    const initialTocText = tocCountBadge ? tocCountBadge.textContent : '21 Chapters';
+    const initialTocText = tocCountBadge ? tocCountBadge.textContent : '23 Chapters';
 
     if (searchInput) {
         // Build searchable index from DOM

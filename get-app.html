@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the App — RAW Browser</title>
+    <meta name="description"
+        content="About the RAW browser: It is purely a PoC (Proof of Concept) of the project. Contact via email for tester access.">
+    <link rel="icon" type="image/png" href="assets/RAW.png">
+    <link rel="stylesheet" href="raw-blogs-css.css">
+    <style>
+        #webgl {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+            border-radius: var(--radius-window);
+        }
+
+        .app-navbar {
+            position: relative;
+            z-index: 2;
+        }
+
+        .get-app-stage {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding: 56px 24px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notice-container {
+            width: 100%;
+            max-width: 680px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .notice-card {
+            background: rgba(17, 18, 26, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 44px 40px;
+            box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notice-title {
+            font-size: clamp(2rem, 4.5vw, 2.7rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .notice-text {
+            font-size: 1.05rem;
+            color: var(--color-text-body);
+            line-height: 1.7;
+            margin: 0;
+            max-width: 560px;
+        }
+
+        .email-box {
+            background: #090a10;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            width: 100%;
+            max-width: 480px;
+            margin-top: 8px;
+        }
+
+        .email-text {
+            font-family: var(--font-mono);
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #c7d2fe;
+            user-select: all;
+            word-break: break-all;
+        }
+
+        .btn-copy-email {
+            background: rgba(99, 102, 241, 0.18);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            color: #ffffff;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .btn-copy-email:hover {
+            background: var(--color-accent);
+            box-shadow: 0 0 12px var(--color-accent-glow);
+        }
+
+        .btn-copy-email.copied {
+            background: #10b981 !important;
+            border-color: #34d399 !important;
+            color: #ffffff !important;
+        }
+
+        .actions-group {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            max-width: 480px;
+            margin-top: 4px;
+        }
+
+        .btn-email-link {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 13px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(165, 180, 252, 0.35);
+        }
+
+        .btn-email-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, #7175f8 0%, #5850ec 100%);
+            color: #ffffff;
+        }
+
+
+
+        @media (max-width: 600px) {
+            .notice-card {
+                padding: 32px 20px;
+            }
+
+            .email-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .actions-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-viewport-frame" style="position: relative;">
+        <!-- Background GPU Fluid Canvas -->
+        <canvas id="webgl" aria-hidden="true"></canvas>
+
+        <!-- Top Navigation Bar -->
+        <nav class="app-navbar">
+            <div class="nav-left">
+                <div class="nav-brand-group">
+                    <span class="brand-badge"><img src="assets/RAW.png" alt="RAW"></span>
+                    <span class="brand-title">RAW</span>
+                    <span class="brand-sub">Journal</span>
+                </div>
+                <div class="nav-pill-switcher">
+                    <a href="index.html">Engineering Journal</a>
+                    <a href="svgmap/RAW_MVP_Full_Map_Viewer.html">Architecture</a>
+                    <a href="get-app.html" class="active">Get RAW</a>
+                    <button class="nav-theme-btn" id="theme-toggle-btn" type="button" aria-label="Light Mode"
+                        title="Light Mode">
+                        <!-- Sun SVG -->
+                        <svg class="theme-svg sun-svg" viewBox="0 0 24 24" width="14" height="14" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="m4.93 4.93 1.41 1.41"></path>
+                            <path d="m17.66 17.66 1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="m6.34 17.66-1.41 1.41"></path>
+                            <path d="m19.07 4.93-1.41 1.41"></path>
+                        </svg>
+                        <span class="theme-btn-label">Light</span>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="index.html" class="btn-sidebar-tool"
+                    style="text-decoration:none; max-width:180px; padding:7px 14px;">&larr; Back to Journal</a>
+            </div>
+        </nav>
+
+        <!-- Main Stage -->
+        <main class="get-app-stage">
+            <div class="notice-container">
+
+                <div class="notice-card">
+                    <h1 class="notice-title">Yeah About the App.</h1>
+
+                    <p class="notice-text">
+                        So it is not secure that I can share to large market and it is purely a PoC of the project.
+                        If you want to use the tester version of the browser, please contact via email:
+                    </p>
+
+                    <!-- Email Display & Copy -->
+                    <div class="email-box">
+                        <span class="email-text" id="email-address">arnabbiswas9669@gmail.com</span>
+                        <button class="btn-copy-email" id="btn-copy-email" type="button">Copy Email</button>
+                    </div>
+
+                    <!-- Direct Mailto CTA -->
+                    <div class="actions-group">
+                        <a href="mailto:arnabbiswas9669@gmail.com?subject=RAW%20Browser%20Tester%20Build%20Request"
+                            class="btn-email-link">
+                            <span>✉️ Email Me for Tester Build</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Meme Light Mode Modal Popup ("We don't do that here") -->
+    <div id="light-mode-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true"
+        aria-label="We don't do that here">
+        <div class="modal-backdrop"></div>
+        <div class="modal-card">
+            <button id="modal-close-btn" class="modal-close-btn" type="button" aria-label="Close popup"
+                title="Close">✕</button>
+            <div class="modal-image-wrapper">
+                <img src="assets/pop-up.png" alt="We don't do that here" class="meme-popup-img">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Copy Email Button
+            const copyBtn = document.getElementById('btn-copy-email');
+            const emailElem = document.getElementById('email-address');
+
+            if (copyBtn && emailElem) {
+                copyBtn.addEventListener('click', async () => {
+                    const email = emailElem.textContent.trim();
+                    try {
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            await navigator.clipboard.writeText(email);
+                        } else {
+                            throw new Error('Clipboard API unavailable');
+                        }
+                    } catch (e) {
+                        const temp = document.createElement('input');
+                        temp.value = email;
+                        document.body.appendChild(temp);
+                        temp.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(temp);
+                    }
+                    const orig = copyBtn.textContent;
+                    copyBtn.textContent = '✓ Copied!';
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.textContent = orig;
+                        copyBtn.classList.remove('copied');
+                    }, 1800);
+                });
+            }
+
+            // 2. Light Mode Meme Popup ("We don't do that here")
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+            const lightModal = document.getElementById('light-mode-modal');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const modalBackdrop = lightModal ? lightModal.querySelector('.modal-backdrop') : null;
+
+            if (themeToggleBtn && lightModal) {
+                themeToggleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    lightModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+
+                const closeModal = () => {
+                    lightModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                };
+
+                if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+                if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && lightModal.style.display === 'flex') closeModal();
+                });
+            }
+        });
+    </script>
+    <script src="fluid-animation.js"></script>
+</body>
+
+</html>
