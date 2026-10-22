@@ -20,14 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     tocLinks.forEach(link => {
                         if (link.getAttribute('href') === `#${id}`) {
                             link.classList.add('active');
-                            // Ensure active item is visible in sidebar scrollview without scrolling the main window
-                            const sidebar = link.closest('.sidebar-toc');
-                            if (sidebar) {
+                            // Ensure active item is visible in TOC scrollview without scrolling the main window
+                            const scrollContainer = link.closest('.toc-top-section') || link.closest('.sidebar-toc');
+                            if (scrollContainer) {
                                 const linkRect = link.getBoundingClientRect();
-                                const sidebarRect = sidebar.getBoundingClientRect();
-                                if (linkRect.top < sidebarRect.top || linkRect.bottom > sidebarRect.bottom) {
-                                    sidebar.scrollBy({
-                                        top: (linkRect.top - sidebarRect.top) - (sidebarRect.height / 2) + (linkRect.height / 2),
+                                const containerRect = scrollContainer.getBoundingClientRect();
+                                if (linkRect.top < containerRect.top || linkRect.bottom > containerRect.bottom) {
+                                    scrollContainer.scrollBy({
+                                        top: (linkRect.top - containerRect.top) - (containerRect.height / 2) + (linkRect.height / 2),
                                         behavior: 'smooth'
                                     });
                                 }
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const noResultsEl = document.getElementById('no-search-results');
     const clearEmptyBtn = document.getElementById('btn-clear-empty');
     const tocCountBadge = document.getElementById('toc-count-badge');
-    const initialTocText = tocCountBadge ? tocCountBadge.textContent : '23 Chapters';
+    const initialTocText = tocCountBadge ? tocCountBadge.textContent : '21 Chapters';
 
     if (searchInput) {
         // Build searchable index from DOM
@@ -422,22 +422,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Utility button handlers
     const copyLinkBtn = document.getElementById('btn-copy-link');
     if (copyLinkBtn) {
-        copyLinkBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(window.location.href);
+        copyLinkBtn.addEventListener('click', async () => {
             const original = copyLinkBtn.innerHTML;
-            copyLinkBtn.innerHTML = '✓ Copied!';
-            setTimeout(() => { copyLinkBtn.innerHTML = original; }, 1800);
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(window.location.href);
+                } else {
+                    throw new Error('Clipboard API unavailable');
+                }
+            } catch (e) {
+                const temp = document.createElement('input');
+                temp.value = window.location.href;
+                document.body.appendChild(temp);
+                temp.select();
+                document.execCommand('copy');
+                document.body.removeChild(temp);
+            }
+            copyLinkBtn.innerHTML = '✓ Link Copied!';
+            copyLinkBtn.classList.add('copied');
+            setTimeout(() => {
+                copyLinkBtn.innerHTML = original;
+                copyLinkBtn.classList.remove('copied');
+            }, 1800);
         });
     }
 
-    const bookmarkBtn = document.getElementById('btn-bookmark');
-    if (bookmarkBtn) {
-        bookmarkBtn.addEventListener('click', () => {
-            const original = bookmarkBtn.innerHTML;
-            bookmarkBtn.innerHTML = '★ Saved';
-            setTimeout(() => { bookmarkBtn.innerHTML = original; }, 1800);
-        });
-    }
 
     // 6. Light Mode Meme Popup ("We don't do that here")
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
