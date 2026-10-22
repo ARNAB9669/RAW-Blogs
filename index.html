@@ -4,9 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAW-Blogs</title>
+
+    <title>RAW Browser Engineering Journal | Privacy, AI & Development</title>
+    <meta name="description"
+        content="Technical articles on building RAW, a privacy-first browser with anti-fingerprinting, ad blocking, AI agents, VPN tools, secure local features, and Electron architecture.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Arnab Biswas">
+    <meta name="theme-color" content="#09090b">
+
+    <link rel="canonical" href="https://blogs.raw.covelly.com/index.html">
     <link rel="icon" type="image/png" href="assets/RAW.png">
     <link rel="stylesheet" href="raw-blogs-css.css">
+
+    <!-- Social sharing previews -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RAW Engineering Journal">
+    <meta property="og:title" content="RAW Browser Engineering Journal | Privacy, AI & Development">
+    <meta property="og:description"
+        content="Technical articles on RAW browser privacy, AI tools, and custom browser architecture.">
+    <meta property="og:url" content="https://blogs.raw.covelly.com/index.html">
+    <meta property="og:image" content="https://blogs.raw.covelly.com/assets/RAW.png">
+    <meta property="og:image:alt" content="RAW Browser logo">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RAW Browser Engineering Journal">
+    <meta name="twitter:description"
+        content="Technical articles on RAW browser privacy, AI tools, and custom browser architecture.">
+    <meta name="twitter:image" content="https://blogs.raw.covelly.com/assets/RAW.png">
+
+    <!-- Search-engine structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "RAW Engineering Journal",
+        "url": "https://blogs.raw.covelly.com/index.html",
+        "description": "Technical articles about RAW browser engineering, privacy systems, AI tools, and browser architecture.",
+        "inLanguage": "en",
+        "author": {
+            "@type": "Person",
+            "name": "Arnab Biswas"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "RAW",
+            "url": "https://blogs.raw.covelly.com/"
+        }
+    }
+    </script>
+
+    <!-- Clean visible URL: /index.html → / -->
+    <script>
+        try {
+            if (
+                window.location.protocol.startsWith("http") &&
+                window.location.pathname.endsWith("/index.html")
+            ) {
+                const cleanPath = window.location.pathname.replace(/\/index\.html$/, "/") || "/";
+                window.history.replaceState(
+                    null,
+                    "",
+                    cleanPath + window.location.search + window.location.hash
+                );
+            }
+        } catch (error) {
+            // URL cleanup must never interfere with page rendering.
+        }
+    </script>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJZ552B525"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+        gtag("config", "G-QJZ552B525");
+    </script>
 </head>
 
 <body>
@@ -117,8 +194,10 @@
                         <li><a href="#entry-morsecode"><span class="toc-num">20</span> <span>MorseCode</span></a></li>
                         <li><a href="#entry-crashlogs"><span class="toc-num">21</span> <span>CrashLogs
                                     Diagnostics</span></a></li>
-                        <li><a href="#entry-engine-swap"><span class="toc-num">22</span> <span>Live Hot Engine Swap (Blink ⇄ WebKit)</span></a></li>
-                        <li><a href="#entry-lock-domain"><span class="toc-num">23</span> <span>Lock Domain &amp; Tab Containment</span></a></li>
+                        <li><a href="#entry-engine-swap"><span class="toc-num">22</span> <span>Live Hot Engine Swap
+                                    (Blink ⇄ WebKit)</span></a></li>
+                        <li><a href="#entry-lock-domain"><span class="toc-num">23</span> <span>Lock Domain &amp; Tab
+                                    Containment</span></a></li>
                     </ol>
                 </div>
 
@@ -133,7 +212,8 @@
                         </div>
                     </div>
                     <div class="sidebar-actions">
-                        <button class="btn-sidebar-tool" id="btn-copy-link" title="Copy shareable link">🔗 Share Link</button>
+                        <button class="btn-sidebar-tool" id="btn-copy-link" title="Copy shareable link">🔗 Share
+                            Link</button>
                     </div>
                 </div>
             </aside>
@@ -149,6 +229,12 @@
                     <button id="btn-clear-empty" class="btn-sidebar-tool"
                         style="max-width: 160px; margin-top: 16px;">Clear Search</button>
                 </div>
+
+                <header class="hero">
+                    <h1>RAW Browser Engineering Journal</h1>
+                    <p>Inside the systems architecture, anti-fingerprinting engine, dual-engine runtime, and companion
+                        AI tooling of RAW—a privacy-first browser built from scratch.</p>
+                </header>
 
                 <article class="entry" id="entry-ui-overview" data-filter="ui-ux">
                     <header class="entry-header">
@@ -285,7 +371,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/Di9xyprpaOA" title="Tabs, Windows & Navigation — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/Di9xyprpaOA" title="Tabs, Windows & Navigation — RAW"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -359,7 +448,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/Zh0h1P63fsk" title="Inside the Privacy & Anti-Fingerprinting Engine — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/Zh0h1P63fsk"
+                            title="Inside the Privacy & Anti-Fingerprinting Engine — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -409,7 +501,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/n6nAGrrGY3I" title="Ad-Blocking That Doesn't Break Pages — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/n6nAGrrGY3I"
+                            title="Ad-Blocking That Doesn't Break Pages — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -454,7 +549,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/pUKlYzauf4A" title="Native DRM & Streaming Acceleration — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/pUKlYzauf4A"
+                            title="Native DRM & Streaming Acceleration — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -508,7 +606,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/0nbgRHAeGVw" title="XDown — The Built-In Media Downloader — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/0nbgRHAeGVw"
+                            title="XDown — The Built-In Media Downloader — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -567,7 +668,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/MK64RCJ7EP8" title="The Full-System VPN & Privacy Network — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/MK64RCJ7EP8"
+                            title="The Full-System VPN & Privacy Network — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -623,7 +727,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/0B0JDhpjXx8" title="On-Device Speech, Audio & Translation — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/0B0JDhpjXx8"
+                            title="On-Device Speech, Audio & Translation — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -695,7 +802,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/Xq8Yp90TE2I" title="The RAW-AI Agent & Its 33 Tools — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/Xq8Yp90TE2I"
+                            title="The RAW-AI Agent & Its 33 Tools — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -756,7 +866,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/ZDmEl9frGGY" title="Tiyara — The 3D Companion — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/ZDmEl9frGGY" title="Tiyara — The 3D Companion — RAW"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -798,7 +911,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/Jc27eb9TUxc" title="Gemini Live Voice Mode — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/Jc27eb9TUxc" title="Gemini Live Voice Mode — RAW"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -880,7 +996,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/DsST30F7voQ" title="Chat — The Conversational AI Workspace — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/DsST30F7voQ"
+                            title="Chat — The Conversational AI Workspace — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -918,7 +1037,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/-jFKPGtpdRY" title="LocalDrive — Secure Local File Sharing — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/-jFKPGtpdRY"
+                            title="LocalDrive — Secure Local File Sharing — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -955,7 +1077,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/PaRpuOB853g" title="VPNExtender — Mobile Tethering Cockpit — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/PaRpuOB853g"
+                            title="VPNExtender — Mobile Tethering Cockpit — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -997,7 +1122,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/z5ZCexCasVs" title="VRMPoseEditor — Posing Tiyara — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/z5ZCexCasVs"
+                            title="VRMPoseEditor — Posing Tiyara — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -1037,7 +1165,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/VFxSarW6Aio" title="CTF Security Dashboard — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/VFxSarW6Aio" title="CTF Security Dashboard — RAW"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -1075,7 +1206,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/4xFmGBNnybw" title="AILogs Inspector — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/4xFmGBNnybw" title="AILogs Inspector — RAW"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -1104,11 +1238,15 @@
                                 Manager</strong> (mapped out in my <code>RAW_AI_File_Logic.svg</code> flowcharts)
                             gives you a dedicated, organized home for everything the AI agent has created or fetched for
                             you—including task screenshots, rendered PDFs, and media grabbed via XDown—all neatly linked
-                            back to the exact conversation that produced them.</p>
+                            back to the exact conversation that produced them.
+                        </p>
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/AJB0xu478eg" title="AIFiles Manager — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/AJB0xu478eg" title="AIFiles Manager — RAW"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -1140,7 +1278,9 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/PpX88lvQCfw" title="MorseCode — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/PpX88lvQCfw" title="MorseCode — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -1173,7 +1313,10 @@
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/JkrLjBlsQMY" title="CrashLogs Diagnostics — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/JkrLjBlsQMY" title="CrashLogs Diagnostics — RAW"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -1202,16 +1345,20 @@
 
                         <p>While architecting RAW, I refused to accept that compromise. Blink is peerless for raw
                             JavaScript performance, cutting-edge web standard adoption, Chrome extension compatibility,
-                            and developer tooling. But on macOS, Apple's native WebKit (<code>WKWebView</code>) possesses
-                            unique hardware capabilities: genuine <strong>4K FairPlay DRM</strong> decryption for Apple TV+
+                            and developer tooling. But on macOS, Apple's native WebKit (<code>WKWebView</code>)
+                            possesses
+                            unique hardware capabilities: genuine <strong>4K FairPlay DRM</strong> decryption for Apple
+                            TV+
                             and Netflix, direct Metal GPU compositor hooks, and remarkably low battery consumption on
                             Apple Silicon.</p>
 
-                        <p>Rather than making you juggle two separate browsers, RAW features a genuine <strong>Live Hot Engine
+                        <p>Rather than making you juggle two separate browsers, RAW features a genuine <strong>Live Hot
+                                Engine
                                 Swap</strong>. Right-click any open tab, select <em>"Swap to WebKit (Native)"</em> or
                             <em>"Swap to Blink (Chromium)"</em>, and RAW dynamically morphs the underlying rendering
                             engine in real time—preserving your video timestamp, form values, scroll coordinates, and
-                            active session cookies without missing a beat.</p>
+                            active session cookies without missing a beat.
+                        </p>
 
                         <div class="terminal-block">
                             <div class="terminal-header">
@@ -1222,7 +1369,8 @@
                                 <span>stateSync.js ⇄ DRMOverlay.mm</span>
                             </div>
                             <div class="terminal-content">
-                                <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; color: #a5b4fc; overflow-x: auto;">
+                                <pre
+                                    style="margin: 0; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; color: #a5b4fc; overflow-x: auto;">
 ┌───────────────────────── Live Hot Engine Swap Pipeline ─────────────────────────┐
 │ [Tab Context Menu] → Right Click → "Swap to WebKit (Native)"                     │
 │   ├── 1. stateSync.js: Extract { scroll, currentTime, volume, forms }            │
@@ -1239,36 +1387,49 @@
                         <ul>
                             <li><strong>Sub-second state extraction (<code>stateSync.js</code>)</strong> — Before
                                 dismantling the active engine, RAW evaluates an asynchronous state extractor across the
-                                current tab. It calculates viewport offsets (<code>scrollX</code>, <code>scrollY</code>),
-                                probes HTML5 <code>&lt;video&gt;</code> elements down to the millisecond (<code>currentTime</code>,
-                                <code>paused</code>, <code>volume</code>, <code>muted</code>, <code>playbackRate</code>),
+                                current tab. It calculates viewport offsets (<code>scrollX</code>,
+                                <code>scrollY</code>),
+                                probes HTML5 <code>&lt;video&gt;</code> elements down to the millisecond
+                                (<code>currentTime</code>,
+                                <code>paused</code>, <code>volume</code>, <code>muted</code>,
+                                <code>playbackRate</code>),
                                 and serializes all active <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, and
-                                <code>&lt;select&gt;</code> inputs into an atomic snapshot payload.</li>
+                                <code>&lt;select&gt;</code> inputs into an atomic snapshot payload.
+                            </li>
                             <li><strong>Bypassing Apple's ITP and silent cookie loss</strong> — The most treacherous bug
                                 encountered during development was silent session drop. When switching from Blink to
                                 WebKit on YouTube or Google accounts, users were abruptly kicked out. Apple's default
                                 <code>WKWebsiteDataStore</code> enforces Intelligent Tracking Prevention (ITP), which
-                                silently discards cross-domain authentication cookies even when programmatically injected.
-                                RAW solved this by binding <code>WKWebView</code> to <code>[WKWebsiteDataStore nonPersistentDataStore]</code>,
-                                completely disabling ITP enforcement while maintaining pristine session-level privacy.</li>
+                                silently discards cross-domain authentication cookies even when programmatically
+                                injected.
+                                RAW solved this by binding <code>WKWebView</code> to
+                                <code>[WKWebsiteDataStore nonPersistentDataStore]</code>,
+                                completely disabling ITP enforcement while maintaining pristine session-level privacy.
+                            </li>
                             <li><strong>Atomic C++ cookie-then-navigate synchronization</strong> — Introducing arbitrary
                                 delays between injecting cookies and triggering navigation caused fatal race conditions.
-                                RAW solved this by baking the cookie jar injection directly into Objective-C++ <code>LoadURL</code>
+                                RAW solved this by baking the cookie jar injection directly into Objective-C++
+                                <code>LoadURL</code>
                                 and <code>Reload</code> within <code>DRMOverlay.mm</code>. Navigation only fires inside
                                 the <code>InjectCookies</code> completion handler, making it physically impossible for
-                                WebKit to request a page before cookies are written.</li>
+                                WebKit to request a page before cookies are written.
+                            </li>
                             <li><strong>The 50ms native suppression shield & warp HUD</strong> — Swapping an Electron
                                 <code>WebContentsView</code> with an opaque macOS <code>NSView</code> overlay can cause
                                 violent visual flickering. RAW masks this transition with a sleek "Transforming Engine"
                                 HUD sequence. Under the hood, a rapid 50ms suppression loop keeps the native view hidden
                                 while it initializes, preventing the opaque window from flashing prematurely over the
-                                UI animation before smoothly revealing itself.</li>
+                                UI animation before smoothly revealing itself.
+                            </li>
                             <li><strong>Dynamic DOM polling & frame-accurate resumption</strong> — Single-page
-                                applications (like YouTube or Netflix) do not instantiate their <code>&lt;video&gt;</code>
-                                player immediately upon HTML parse; it mounts asynchronously via client JavaScript. RAW's
+                                applications (like YouTube or Netflix) do not instantiate their
+                                <code>&lt;video&gt;</code>
+                                player immediately upon HTML parse; it mounts asynchronously via client JavaScript.
+                                RAW's
                                 <code>buildRestoreScript</code> runs an intelligent polling loop (up to 25 attempts over
                                 5 seconds). The moment the player attaches to the DOM, RAW synchronizes the exact
-                                timestamp and unpauses playback automatically.</li>
+                                timestamp and unpauses playback automatically.
+                            </li>
                             <li><strong>Strict child process hygiene & audio isolation</strong> — When hot-swapping back
                                 to Blink (or closing a tab), RAW forcefully terminates the native WebKit helper process
                                 (<code>drmManager.kill(tabId)</code>). This reclaims system RAM, prevents background
@@ -1276,15 +1437,21 @@
                         </ul>
 
                         <blockquote class="callout-quote">
-                            "True browser freedom shouldn't force you into running two separate applications side by side.
-                            It means giving a single tab the agility to morph its rendering engine at will—harnessing Blink
-                            for unrestricted web standard power, and native WebKit for hardware-grade 4K streaming and all-day
+                            "True browser freedom shouldn't force you into running two separate applications side by
+                            side.
+                            It means giving a single tab the agility to morph its rendering engine at will—harnessing
+                            Blink
+                            for unrestricted web standard power, and native WebKit for hardware-grade 4K streaming and
+                            all-day
                             battery life."
                         </blockquote>
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/nwCU7IKUOPI" title="Live Hot Engine Swap (Blink ⇄ WebKit) — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/nwCU7IKUOPI"
+                            title="Live Hot Engine Swap (Blink ⇄ WebKit) — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 
@@ -1307,18 +1474,25 @@
 
                     <div class="entry-body">
                         <p>The modern web is full of aggressive, hostile navigation traps. Whether you are navigating
-                            complex research portals, streaming video sites, forums, or download mirrors, a single innocent
-                            click can trigger an unwanted redirect chain, an aggressive frame-busting script, or a cluster
+                            complex research portals, streaming video sites, forums, or download mirrors, a single
+                            innocent
+                            click can trigger an unwanted redirect chain, an aggressive frame-busting script, or a
+                            cluster
                             of popups that hijack your tab away to an unfamiliar scam or tracker domain.</p>
 
-                        <p>To eliminate this anxiety once and for all, RAW introduces <strong>Lock Domain</strong>. With a single
+                        <p>To eliminate this anxiety once and for all, RAW introduces <strong>Lock Domain</strong>. With
+                            a single
                             right-click anywhere on a webpage, you can toggle "Lock Domain". The moment it is turned on,
-                            RAW establishes an airtight perimeter around that tab—confining all navigation, frames, and popups
-                            strictly to the current root domain (e.g., <code>youtube.com</code> or <code>github.com</code>), while
-                            vaporizing rogue third-party redirect attempts before they can even touch the network.</p>
+                            RAW establishes an airtight perimeter around that tab—confining all navigation, frames, and
+                            popups
+                            strictly to the current root domain (e.g., <code>youtube.com</code> or
+                            <code>github.com</code>), while
+                            vaporizing rogue third-party redirect attempts before they can even touch the network.
+                        </p>
 
                         <div style="margin: 28px auto; text-align: center;">
-                            <img src="assets/lock-domain.png" alt="Lock Domain Context Menu — RAW" style="max-height: 480px; width: auto; max-width: 100%; border-radius: 12px; border: 1px solid var(--color-card-border); box-shadow: 0 16px 36px rgba(0,0,0,0.6);">
+                            <img src="assets/lock-domain.png" alt="Lock Domain Context Menu — RAW"
+                                style="max-height: 480px; width: auto; max-width: 100%; border-radius: 12px; border: 1px solid var(--color-card-border); box-shadow: 0 16px 36px rgba(0,0,0,0.6);">
                         </div>
 
                         <div class="terminal-block">
@@ -1330,7 +1504,8 @@
                                 <span>domain_lock.js (tldts engine)</span>
                             </div>
                             <div class="terminal-content">
-                                <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; color: #a5b4fc; overflow-x: auto;">
+                                <pre
+                                    style="margin: 0; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; color: #a5b4fc; overflow-x: auto;">
 ┌─────────────────────── Strict Domain Lock Defense Matrix ───────────────────────┐
 │ [User Action] → Right-Click Webpage → Toggle "Lock Domain" (Active Tab)         │
 │   ├── 1. Root Domain Registration: Extracts eTLD+1 using tldts (e.g. site.com)  │
@@ -1344,21 +1519,57 @@
                         </div>
 
                         <ul>
-                            <li><strong>Effective root domain resolution (<code>tldts</code>)</strong> — Rather than naively locking to an exact subdomain or raw host, RAW utilizes <code>tldts-experimental</code> to compute the true registered domain (eTLD+1). This means locking on <code>music.youtube.com</code> seamlessly permits you to navigate across <code>www.youtube.com</code> or <code>m.youtube.com</code>, while completely locking out unauthorized third-party destinations.</li>
-                            <li><strong>Real-time navigation interception (<code>will-navigate</code>)</strong> — The second a script or user link attempts to point the main frame outside of the locked domain (for example, clicking a deceptively masked link that attempts to escape to an external advertiser), RAW's navigation listener fires <code>event.preventDefault()</code> and terminates the attempt instantly.</li>
-                            <li><strong>Server-side redirect bouncer (<code>will-redirect</code>)</strong> — Many shady ad networks rely on HTTP 301, 302, or 307 redirect chains that pass you through multiple tracker domains before you realize what happened. RAW intercepts the redirect event at the protocol boundary, cutting the connection before the browser can even begin rendering the foreign domain.</li>
-                            <li><strong>Iframe &amp; frame-busting neutralization (<code>will-frame-navigate</code>)</strong> — Malicious third-party iframes often execute <code>top.location = ...</code> or frame-busting scripts designed to hijack the entire browser window. RAW monitors <code>will-frame-navigate</code> with an explicit <code>event.isMainFrame</code> audit, locking out any iframe that attempts to force an off-domain navigation on the primary stage.</li>
-                            <li><strong>Zero-popup policy via <code>guardWindowOpen</code></strong> — Unsolicited popups and click-under windows are completely suffocated. By intercepting Chromium's <code>setWindowOpenHandler</code>, any <code>window.open()</code> call or <code>&lt;a target="_blank"&gt;</code> targeting an external domain is rejected with <code>{ action: 'deny' }</code>—so unwanted tabs never spawn into existence.</li>
-                            <li><strong>Automatic child lock inheritance (<code>inheritLock</code>)</strong> — When you click a valid link that opens a legitimate new tab or child window on the same domain, RAW's window manager passes the lock state directly into the new tab's <code>WebContents</code>. Your defensive sandbox remains unbroken without requiring you to toggle the menu again.</li>
+                            <li><strong>Effective root domain resolution (<code>tldts</code>)</strong> — Rather than
+                                naively locking to an exact subdomain or raw host, RAW utilizes
+                                <code>tldts-experimental</code> to compute the true registered domain (eTLD+1). This
+                                means locking on <code>music.youtube.com</code> seamlessly permits you to navigate
+                                across <code>www.youtube.com</code> or <code>m.youtube.com</code>, while completely
+                                locking out unauthorized third-party destinations.
+                            </li>
+                            <li><strong>Real-time navigation interception (<code>will-navigate</code>)</strong> — The
+                                second a script or user link attempts to point the main frame outside of the locked
+                                domain (for example, clicking a deceptively masked link that attempts to escape to an
+                                external advertiser), RAW's navigation listener fires
+                                <code>event.preventDefault()</code> and terminates the attempt instantly.
+                            </li>
+                            <li><strong>Server-side redirect bouncer (<code>will-redirect</code>)</strong> — Many shady
+                                ad networks rely on HTTP 301, 302, or 307 redirect chains that pass you through multiple
+                                tracker domains before you realize what happened. RAW intercepts the redirect event at
+                                the protocol boundary, cutting the connection before the browser can even begin
+                                rendering the foreign domain.</li>
+                            <li><strong>Iframe &amp; frame-busting neutralization
+                                    (<code>will-frame-navigate</code>)</strong> — Malicious third-party iframes often
+                                execute <code>top.location = ...</code> or frame-busting scripts designed to hijack the
+                                entire browser window. RAW monitors <code>will-frame-navigate</code> with an explicit
+                                <code>event.isMainFrame</code> audit, locking out any iframe that attempts to force an
+                                off-domain navigation on the primary stage.
+                            </li>
+                            <li><strong>Zero-popup policy via <code>guardWindowOpen</code></strong> — Unsolicited popups
+                                and click-under windows are completely suffocated. By intercepting Chromium's
+                                <code>setWindowOpenHandler</code>, any <code>window.open()</code> call or
+                                <code>&lt;a target="_blank"&gt;</code> targeting an external domain is rejected with
+                                <code>{ action: 'deny' }</code>—so unwanted tabs never spawn into existence.
+                            </li>
+                            <li><strong>Automatic child lock inheritance (<code>inheritLock</code>)</strong> — When you
+                                click a valid link that opens a legitimate new tab or child window on the same domain,
+                                RAW's window manager passes the lock state directly into the new tab's
+                                <code>WebContents</code>. Your defensive sandbox remains unbroken without requiring you
+                                to toggle the menu again.
+                            </li>
                         </ul>
 
                         <blockquote class="callout-quote">
-                            "Browsing should never feel like navigating a minefield of deceptive redirects and rogue popups. With Lock Domain, your tab becomes an impenetrable walled garden—you stay exactly where you intended to be, no matter what sneaky scripts try to throw at you."
+                            "Browsing should never feel like navigating a minefield of deceptive redirects and rogue
+                            popups. With Lock Domain, your tab becomes an impenetrable walled garden—you stay exactly
+                            where you intended to be, no matter what sneaky scripts try to throw at you."
                         </blockquote>
                     </div>
 
                     <div class="entry-media">
-                        <iframe src="https://www.youtube.com/embed/lcS3bRqWnZM" title="Lock Domain & Tab Containment — RAW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                        <iframe src="https://www.youtube.com/embed/lcS3bRqWnZM"
+                            title="Lock Domain & Tab Containment — RAW" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </article>
 

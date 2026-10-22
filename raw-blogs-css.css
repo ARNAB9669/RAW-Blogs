@@ -946,7 +946,7 @@ main.article-stage::-webkit-scrollbar-thumb:hover {
 }
 
 .hero h1 {
-    font-size: 2.75rem;
+    font-size: clamp(1.85rem, 4.5vw, 2.75rem);
     font-weight: 800;
     letter-spacing: -0.03em;
     color: var(--color-text-title);

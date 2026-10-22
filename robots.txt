@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blogs.raw.covelly.com/sitemap.xml

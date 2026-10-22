@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateSearch = () => {
             const query = searchInput.value.toLowerCase().trim();
             const dividers = document.querySelectorAll('.entry-divider');
+            const heroEl = document.querySelector('.hero');
             selectedDropdownIndex = -1;
 
             if (clearBtn) {
@@ -199,11 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (item.tocLi) item.tocLi.style.display = '';
                 });
                 dividers.forEach(div => div.style.display = '');
+                if (heroEl) heroEl.style.display = '';
                 if (noResultsEl) noResultsEl.style.display = 'none';
                 if (tocCountBadge) tocCountBadge.textContent = initialTocText;
                 if (dropdown) dropdown.style.display = 'none';
                 return;
             }
+
+            if (heroEl) heroEl.style.display = 'none';
 
             // Score & filter items
             const matches = [];
@@ -424,15 +428,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (copyLinkBtn) {
         copyLinkBtn.addEventListener('click', async () => {
             const original = copyLinkBtn.innerHTML;
+            const cleanUrl = window.location.href.replace(/\/index\.html(?=($|[?#]))/, '/');
             try {
                 if (navigator.clipboard && navigator.clipboard.writeText) {
-                    await navigator.clipboard.writeText(window.location.href);
+                    await navigator.clipboard.writeText(cleanUrl);
                 } else {
                     throw new Error('Clipboard API unavailable');
                 }
             } catch (e) {
                 const temp = document.createElement('input');
-                temp.value = window.location.href;
+                temp.value = cleanUrl;
                 document.body.appendChild(temp);
                 temp.select();
                 document.execCommand('copy');

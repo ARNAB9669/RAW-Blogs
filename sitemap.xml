@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- RAW Engineering Journal & Blog Entries -->
+  <url>
+    <loc>https://blogs.raw.covelly.com/</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Get RAW Tester Access -->
+  <url>
+    <loc>https://blogs.raw.covelly.com/get-app.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Architecture Map Viewer -->
+  <url>
+    <loc>https://blogs.raw.covelly.com/svgmap/RAW_MVP_Full_Map_Viewer.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Engineering Stories & Incident Reports -->
+  <url>
+    <loc>https://blogs.raw.covelly.com/assets/i-was-about-to-go-mental-hospital.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://blogs.raw.covelly.com/assets/i-broke-internet.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
