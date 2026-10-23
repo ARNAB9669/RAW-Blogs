@@ -1,5 +1,5 @@
 // fluid-animation.js — GPU Navier-Stokes fluid & smoke simulation
-// Adapted from Covelly fluid engine for RAW Get-App page
+// Adapted from Covelly fluid engine for RAW Get-App page [tbh an very old code of mine]
 
 (function () {
     const canvas = document.querySelector('#webgl');

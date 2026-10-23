@@ -170,6 +170,28 @@
             color: #ffffff;
         }
 
+        .notice-disclaimer {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            padding: 8px 18px;
+            font-family: var(--font-mono);
+            letter-spacing: 0.01em;
+            line-height: 1.4;
+        }
+
+        .notice-disclaimer .disclaimer-highlight {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
 
 
         @media (max-width: 600px) {
@@ -255,6 +277,11 @@
                             class="btn-email-link">
                             <span>✉️ Email Me for Tester Build</span>
                         </a>
+                    </div>
+
+                    <!-- Hardware Requirement Disclaimer -->
+                    <div class="notice-disclaimer">
+                        <span>⚠️ <span class="disclaimer-highlight">Disclaimer:</span> Only works on MacBooks with M-series chips (Apple Silicon).</span>
                     </div>
                 </div>
 
