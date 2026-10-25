@@ -151,7 +151,7 @@
                 <div class="toc-top-section">
                     <div class="toc-header-row">
                         <span class="toc-eyebrow">TABLE OF CONTENTS</span>
-                        <span class="toc-chapter-badge" id="toc-count-badge">23 Chapters</span>
+                        <span class="toc-chapter-badge" id="toc-count-badge">24 Chapters</span>
                     </div>
                     <ol class="toc-items-list" id="toc-list">
                         <li><a href="#entry-ui-overview"><span class="toc-num">01</span> <span>RAW — A Browser Rebuilt
@@ -199,6 +199,7 @@
                                     (Blink ⇄ WebKit)</span></a></li>
                         <li><a href="#entry-lock-domain"><span class="toc-num">23</span> <span>Lock Domain &amp; Tab
                                     Containment</span></a></li>
+                        <li><a href="#entry-mcp"><span class="toc-num">24</span> <span>Model Context Protocol (MCP)</span></a></li>
                     </ol>
                 </div>
 
@@ -1574,6 +1575,83 @@
                     </div>
                 </article>
 
+                <hr class="entry-divider">
+
+                <article class="entry" id="entry-mcp" data-filter="tech-deep-dive">
+                    <header class="entry-header">
+                        <span class="blog-tag">AI & Extensibility</span>
+                        <h2>24. Model Context Protocol (MCP) — External Tools for RAW-AI</h2>
+                        <div class="author-meta-row">
+                            <div class="author-left">
+                                <div class="author-avatar-chip">AB</div>
+                                <div class="author-info-text">
+                                    <div class="author-name">Arnab Biswas</div>
+                                    <div class="author-role">Solo Developer • Systems & Privacy Architecture</div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="entry-body">
+                        <p>While RAW-AI was built from day one with over 33 native on-device tools—ranging from tab automation and DOM extraction to local VPN proxies and memory inspection—modern AI systems shouldn't exist on an isolated island. To turn RAW into a truly unbounded computing hub, we integrated native support for the <strong>Model Context Protocol (MCP)</strong>.</p>
+
+                        <p>Now, you can connect external MCP servers directly to RAW-AI with zero friction. Whether you want to query live domain availability through GoDaddy, fetch developer documentation from online registries, query local SQLite or Postgres databases, automate git workflows, or control external APIs through custom servers, RAW bridges the gap between your local browser agent and the entire MCP open ecosystem.</p>
+
+                        <div class="terminal-block">
+                            <div class="terminal-header">
+                                <span class="terminal-dot red"></span>
+                                <span class="terminal-dot yellow"></span>
+                                <span class="terminal-dot green"></span>
+                                <span class="terminal-title">RAW-AI ⇄ MCP Unified Bridge Architecture</span>
+                            </div>
+                            <div class="terminal-body">
+<pre class="ascii-diagram">
+┌──────────────────────────── RAW Browser Settings ────────────────────────────┐
+│ [MCP Management Panel]                                                       │
+│   ├── Installed Servers: Live connection health &amp; active tool counting      │
+│   ├── Discover Registry: Live search &amp; one-click install from MCP registry    │
+│   └── Custom Server: stdio commands (npx/uvx) &amp; remote Streamable HTTP / SSE │
+└──────────────────────────────────────┬───────────────────────────────────────┘
+                                       │
+                                       ▼
+┌────────────────────── Universal Schema Normalizer ───────────────────────────┐
+│ • Discards unsupported metadata ($schema, examples, title, default, etc.)    │
+│ • Flattens polymorphic unions (anyOf/oneOf) into clean typed primitives      │
+│ • Sanitizes tool names to [a-zA-Z0-9_] and preserves mapping via Registry    │
+└──────────────────────────────────────┬───────────────────────────────────────┘
+                                       │
+                                       ▼
+┌──────────────────────── RAW-AI Multi-Provider Core ──────────────────────────┐
+│ Automatically projects cleaned tool schemas to:                              │
+│   ├── Google Gemini (Protobuf functionDeclarations)                          │
+│   ├── OpenRouter (OpenAI-compatible tools array)                             │
+│   └── Ollama (Local on-device function calling)                              │
+│                                                                              │
+│ Dynamic Dispatch: AI tool_calls → executeToolCall() → mcpManager.callTool()   │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+                            </div>
+                        </div>
+
+                        <ul>
+                            <li><strong>Dual transport support (Local &amp; Remote)</strong> — RAW supports both local CLI processes via <code>stdio</code> (spawned seamlessly using <code>npx</code> or <code>uvx</code> with sandboxed environment variables) and remote servers over modern <code>Streamable HTTP</code> and <code>Server-Sent Events (SSE)</code>.</li>
+                            <li><strong>Built-in Live Registry Explorer</strong> — Built directly into RAW's Settings UI, you can search hundreds of official and community MCP servers in real time, view required environment variables, and connect with a single click.</li>
+                            <li><strong>Bearer token &amp; header authentication</strong> — For services requiring API credentials or user accounts (like LinkedIn, GitHub, or internal company endpoints), RAW securely stores tokens in macOS Keychain and automatically injects <code>Authorization: Bearer</code> headers into every protocol handshake.</li>
+                            <li><strong>Universal Schema Projection ("The Bouncer")</strong> — Third-party MCP servers emit arbitrary, complex JSON Schema Draft 7 specifications that regularly crash LLM APIs. RAW implements a strict allowlist schema projection pipeline that strips unsupported protobuf fields (like <code>examples</code>, <code>$schema</code>, and <code>const</code>) and flattens unions before Google Gemini or OpenRouter ever sees them.</li>
+                            <li><strong>Model Agnostic (Gemini, OpenRouter &amp; Ollama)</strong> — MCP tools are instantly shared across whichever model provider you choose. Switch between Gemini 2.0 Flash, Claude on OpenRouter, or a local Llama 3.1 model in Ollama without changing a single line of server configuration.</li>
+                        </ul>
+
+                        <blockquote class="callout-quote">
+                            "An AI browser shouldn't just read web pages; it should be an extensible operating environment. By bringing Model Context Protocol into RAW, you can plug in any tool, database, or API on the internet and let your local AI companion interact with it effortlessly."
+                        </blockquote>
+                    </div>
+
+                    <div class="entry-media">
+                        <iframe src="https://www.youtube.com/embed/PXBZ5rUlHpA"
+                            title="Model Context Protocol (MCP) in RAW-AI" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </article>
 
                 <footer class="app-footer">
                     <span>&copy; Covelly. All rights reserved.</span>
